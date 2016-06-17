@@ -18,7 +18,7 @@ router.post('/', passport.authenticate('local', { session: false }), function(re
 		expiresIn: 1440 // Expires in 24 hours
 	});
 	// console.log(token);
-	res.json({username: req.user.username, token: token });
+	res.send({ token: token });
 });
 
 module.exports = router;
