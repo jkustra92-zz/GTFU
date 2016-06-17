@@ -5,6 +5,8 @@ var router = express.Router();
 var User = require('../models/users.js');
 var Zipcode = require('../models/zip.js');
 
+//what uuuuup
+
 router.get('/', function(req, res) {
 
 	var user1 = new User({
