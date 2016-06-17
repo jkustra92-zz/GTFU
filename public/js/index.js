@@ -37,7 +37,7 @@ var App = React.createClass({
 						initialLoginCheck={this.state.authenticatedUser}
 						onChange={this.changeLogin}
 					/>
-					<SignUpForm />
+					<SignUpForm onChange={this.changeLogin}/>
 				</div>
 			);
 		}
@@ -172,6 +172,11 @@ var SignUpForm = React.createClass({
 		this.signupAJAX(username, email, password);
 	},
 	signupAJAX: function(username, email, password) {
+		var self = this;
+		var callback = function() {
+			self.props.onChange();
+		}
+
 		$.ajax({
 			url: '/users',
 			method: 'POST',
@@ -182,6 +187,8 @@ var SignUpForm = React.createClass({
 			}
 		}).done(function(data) {
 			console.log(data);
+			Cookies.set('temp', 'asdfghjkl;');
+			callback();
 		});
 	},
 	render: function() {
