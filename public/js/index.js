@@ -21,11 +21,7 @@ var App = React.createClass({
 	changeLogin: function() {
 		this.setState({
 			authenticatedUser: true
-<<<<<<< HEAD
 		});
-=======
-		})
->>>>>>> 0616_0201PM
 	},
 	render: function() {
 		console.log('authenticatedUser: ', this.state.authenticatedUser);
@@ -41,7 +37,7 @@ var App = React.createClass({
 						initialLoginCheck={this.state.authenticatedUser}
 						onChange={this.changeLogin}
 					/>
-					<SignUpForm />
+					<SignUpForm onChange={this.changeLogin}/>
 				</div>
 			);
 		}
@@ -176,6 +172,11 @@ var SignUpForm = React.createClass({
 		this.signupAJAX(username, email, password);
 	},
 	signupAJAX: function(username, email, password) {
+		var self = this;
+		var callback = function() {
+			self.props.onChange();
+		}
+
 		$.ajax({
 			url: '/users',
 			method: 'POST',
@@ -186,6 +187,8 @@ var SignUpForm = React.createClass({
 			}
 		}).done(function(data) {
 			console.log(data);
+			Cookies.set('temp', 'asdfghjkl;');
+			callback();
 		});
 	},
 	render: function() {
