@@ -20,6 +20,7 @@ router.post('/', function(req, res) {
 			console.log(err); 
 			res.status(500).end();
 		}
+		console.log("Yippee kiyay motherfucker.");
 		res.send(true);
 	});
 });

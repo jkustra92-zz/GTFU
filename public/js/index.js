@@ -12,12 +12,12 @@ var App = React.createClass({
 			authenticatedUser: cookieCheck
 		};
 	},
-	logOut: function(){
+	eatTheCookie: function() { // thanks Joe
 		Cookies.remove('jwt_token');
 		console.log(this.state)
 		this.setState({
-			authenticatedUser: "",
-		})
+			authenticatedUser: '',
+		});
 	},
 	changeLogin: function() {
 		this.setState({
@@ -27,17 +27,20 @@ var App = React.createClass({
 	render: function() {
 		console.log('authenticatedUser: ', this.state.authenticatedUser);
 		// console.log('cookie:', document.cookie);
-
 		if(this.state.authenticatedUser === true) {
 			return (
-				<TestSuccess onChange={this.logOut}/>
+				<TestSuccess onChange={this.eatTheCookie} />
 			)
 		}else{
 			return (
 				<div>
-					<LoginForm initialLoginCheck={this.state.authenticatedUser} onChange={this.changeLogin}/>
+					<LoginForm
+						initialLoginCheck={this.state.authenticatedUser}
+						onChange={this.changeLogin}
+					/>
+					<SignUpForm />
 				</div>
-			)
+			);
 		}
 	}
 });
@@ -66,13 +69,13 @@ var LoginForm = React.createClass({
 	loginAJAX: function(username, password) {
 		$.ajax({
 			url: '/auth',
-			method: "POST",
+			method: 'POST',
 			data: {
 				username: username,
 				password: password
 			},
 			success: function(data) {
-				console.log("token acquired");
+				console.log('Token acquired.');
 				console.log(data);
 				Cookies.set('jwt_token', data.token);
 				this.props.onChange(data.token)
@@ -82,39 +85,54 @@ var LoginForm = React.createClass({
 			}.bind(this)
 		});
 	},
-
 	render: function() {
-		// console.log(this);
 		return (
-			<div className="login-form" >
+			<div className='login-form'>
 				<h3>Please Login</h3>
 				<form onSubmit={this.handleSubmit}>
-					<label htmlFor="username">Username</label>
-					<input className="username-login-form" type="text" value={this.state.username} onChange={this.handleLoginFormChange.bind(this, 'username')}/>
+					<label htmlFor='username'>Username</label>
+					<input
+						className='username-login-form'
+						type='text' 
+						value={this.state.username}
+						onChange={this.handleLoginFormChange.bind(this, 'username')}
+					/>
 					<br/>
-					<label htmlFor="password">Password</label>
-					<input className="password-login-form" type="text" value={this.state.password} onChange={this.handleLoginFormChange.bind(this, 'password')}/>
+					<label htmlFor='password'>Password</label>
+					<input
+						className='password-login-form'
+						type='text'
+						value={this.state.password}
+						onChange={this.handleLoginFormChange.bind(this, 'password')}
+					/>
 					<br/>
-					<input type="submit"/>
+					<input type='submit' />
 				</form>
 			</div>
 		)
 	}
 })
 
-var TestSuccess = React.createClass({
-	handleClick: function(){
-		console.log("wat")
-		this.props.onChange()
-	},
-	render: function(){
-		return(
-		<div>
-			<button onClick = {this.handleClick} id = "logout-button">log out</button>
-			<h1>hello!</h1>
-		</div>)
-	}
-})
+// var TestSuccess = React.createClass({
+// 	handleClick: function(){
+// 		console.log('WAT')
+// 		this.props.onChange()
+// 	},
+// 	render: function(){
+// 		return (
+// 			<div>
+// 				<button
+// 					onClick={this.handleClick}
+// 					id='logout-button'
+// 					>
+// 					Log Out
+// 				</button>
+// 				<h1>hello!</h1>
+// 			</div>
+// 		);
+// 	}
+// });
+
 // var SignUpLink = React.createClass({
 // 	getInitialState: function(){
 // 	return ({clicked: false})
@@ -124,36 +142,40 @@ var TestSuccess = React.createClass({
 // 	},
 // 	render: function() {
 // 		if (this.state.clicked == false){
-// 			return(<a href="#" onClick = {this.handleClick}>sign up!</a>)
+// 			return(<a href='#' onClick = {this.handleClick}>sign up!</a>)
 // 		}else{
 // 			return(
 // 				<SignUpForm/>)
 // 		}
 // 	}
-// })
+// });
 
 var SignUpForm = React.createClass({
 	getInitialState: function() {
 		return {
-			username: "",
-			email: "",
-			password: ""
+			username: '',
+			email: '',
+			password: ''
 		}
 	},
 	handleSignupFormChange: function(stateName, e) {
 		var change = {};
 		change[stateName] = e.target.value;
+		console.log(change)
 		this.setState(change);
 	},
-	handleSubmit: function() {
+	handleSubmit: function(e) {
 		e.preventDefault();
-		console.log(this.state);
-		this.props.
+		console.log('WAT THE HELL');
+		var username = this.state.username.trim();
+		var email = this.state.email.trim();
+		var password = this.state.password.trim();
+		this.signupAJAX(username, email, password);
 	},
 	signupAJAX: function(username, email, password) {
 		$.ajax({
-			url: "/users",
-			method: "POST",
+			url: '/users',
+			method: 'POST',
 			data: {
 				username: username,
 				email: email,
@@ -165,31 +187,31 @@ var SignUpForm = React.createClass({
 	},
 	render: function() {
 		return(
-			<div className="signup-form">
+			<div className='signup-form'>
 				<h3>Sign Up</h3>
 				<form onSubmit={this.handleSubmit}>
-					<label htmlFor="username">Username</label>
+					<label htmlFor='username'>Username</label>
 					<input
-						className="username-signup-form"
-						type="text"
+						className='username-signup-form'
+						type='text'
 						value={this.state.username}
-						onChange={this.handleSignupFormChange}
+						onChange={this.handleSignupFormChange.bind(this, 'username')}
 					/>
-					<label htmlFor="email">E-Mail</label>
+					<label htmlFor='email'>E-Mail</label>
 					<input
-						className="email-signup-form"
-						type="text"
+						className='email-signup-form'
+						type='text'
 						value={this.state.email}
-						onChange={this.handleSignupFormChange}
+						onChange={this.handleSignupFormChange.bind(this, 'email')}
 					/>
-					<label htmlFor="password">Password</label>
+					<label htmlFor='password'>Password</label>
 					<input
-						className="password-signup-form"
-						type="text"
+						className='password-signup-form'
+						type='text'
 						value={this.state.password}
-						onChange={this.handleSignupFormChange}
+						onChange={this.handleSignupFormChange.bind(this, 'password')}
 					/>
-					<button className = "signup-button">submit</button>
+					<input type='submit'/>
 				</form>
 			</div>
 		);
