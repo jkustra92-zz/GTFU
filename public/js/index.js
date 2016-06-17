@@ -1,5 +1,4 @@
-//The Almighty Application
-
+// The Almighty Application
 var App = React.createClass({
 	getInitialState: function() {
 		var cookieCheck;
@@ -9,47 +8,42 @@ var App = React.createClass({
 			cookieCheck = '';
 		}
 		return {
-			justLoggedOut: false,
 			authenticatedUser: cookieCheck
 		};
 	},
-	logOut: function(){
+	eatTheCookie: function() { // thanks Joe
+		Cookies.remove('jwt_token');
 		console.log(this.state)
 		this.setState({
-			authenticatedUser: "",
-			justLoggedOut: true
-		})
+			authenticatedUser: '',
+		});
 	},
-	changeLogin: function(username) {
-		console.log(username)
+	changeLogin: function() {
 		this.setState({
-			username: username,
 			authenticatedUser: true
+<<<<<<< HEAD
+		});
+=======
 		})
-		Cookies.remove();
+>>>>>>> 0616_0201PM
 	},
 	render: function() {
 		console.log('authenticatedUser: ', this.state.authenticatedUser);
-		console.log('cookie:', document.cookie);
-
+		// console.log('cookie:', document.cookie);
 		if(this.state.authenticatedUser === true) {
-			console.log(this.state.username.username)
 			return (
-				<TestSuccess userName = {this.state.username.username} onChange={this.logOut}/>
-			)
-		}else if (this.state.justLoggedOut) {
-			console.log("ur mother")
-			return(
-				<div>
-					<GoodBye userName = {this.state.username.username}/>
-				</div>
+				<TestSuccess onChange={this.eatTheCookie} />
 			)
 		}else{
 			return (
 				<div>
-					<LoginForm initialLoginCheck={this.state.authenticatedUser} onChange={this.changeLogin}/>
+					<LoginForm
+						initialLoginCheck={this.state.authenticatedUser}
+						onChange={this.changeLogin}
+					/>
+					<SignUpForm />
 				</div>
-			)
+			);
 		}
 	}
 });
@@ -78,62 +72,69 @@ var LoginForm = React.createClass({
 	loginAJAX: function(username, password) {
 		$.ajax({
 			url: '/auth',
-			method: "POST",
+			method: 'POST',
 			data: {
 				username: username,
 				password: password
 			},
 			success: function(data) {
-				console.log("token acquired");
-				Cookies.set('jwt_token', data.token);
+				console.log('Token acquired.');
 				console.log(data);
-				console.log(data.username)
-				this.props.onChange(data)
+				Cookies.set('jwt_token', data.token);
+				this.props.onChange(data.token)
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.error(status, err.toString());
 			}.bind(this)
 		});
 	},
-
 	render: function() {
-		// console.log(this);
 		return (
-			<div className="login-form" >
+			<div className='login-form'>
 				<h3>Please Login</h3>
 				<form onSubmit={this.handleSubmit}>
-					<label htmlFor="username">Username</label>
-					<input className="username-login-form" type="text" value={this.state.username} onChange={this.handleLoginFormChange.bind(this, 'username')}/>
+					<label htmlFor='username'>Username</label>
+					<input
+						className='username-login-form'
+						type='text' 
+						value={this.state.username}
+						onChange={this.handleLoginFormChange.bind(this, 'username')}
+					/>
 					<br/>
-					<label htmlFor="password">Password</label>
-					<input className="password-login-form" type="text" value={this.state.password} onChange={this.handleLoginFormChange.bind(this, 'password')}/>
+					<label htmlFor='password'>Password</label>
+					<input
+						className='password-login-form'
+						type='text'
+						value={this.state.password}
+						onChange={this.handleLoginFormChange.bind(this, 'password')}
+					/>
 					<br/>
-					<input type="submit"/>
+					<input type='submit' />
 				</form>
 			</div>
 		)
 	}
 })
 
-var TestSuccess = React.createClass({
-	handleClick: function(){
-		console.log("wat")
-		this.props.onChange()
-	},
-	render: function(){
-		return(
-		<div>
-			<button onClick = {this.handleClick} id = "logout-button">log out</button>
-			<h1>hello, {this.props.userName}!</h1>
-		</div>)
-	}
-})
-
-var GoodBye = React.createClass({
-	render: function(){
-		return (<h1>goodbye, {this.props.userName}!</h1>)
-	}
-})
+// var TestSuccess = React.createClass({
+// 	handleClick: function(){
+// 		console.log('WAT')
+// 		this.props.onChange()
+// 	},
+// 	render: function(){
+// 		return (
+// 			<div>
+// 				<button
+// 					onClick={this.handleClick}
+// 					id='logout-button'
+// 					>
+// 					Log Out
+// 				</button>
+// 				<h1>hello!</h1>
+// 			</div>
+// 		);
+// 	}
+// });
 
 // var SignUpLink = React.createClass({
 // 	getInitialState: function(){
@@ -144,42 +145,80 @@ var GoodBye = React.createClass({
 // 	},
 // 	render: function() {
 // 		if (this.state.clicked == false){
-// 			return(<a href="#" onClick = {this.handleClick}>sign up!</a>)
+// 			return(<a href='#' onClick = {this.handleClick}>sign up!</a>)
 // 		}else{
 // 			return(
 // 				<SignUpForm/>)
 // 		}
 // 	}
-// })
+// });
 
-// var SignUpForm = React.createClass({
-// 	getInitialState: function(){
-// 		return(
-// 			{username: "", email: "", password: ""}
-// 		)
-// 	},
-// 	handleSubmit: function(e){
-// 		e.preventDefault();
-// 		console.log("halp");
-// 	},
-// 	render: function(){
-// 	return (			
-// 		<div className="signup-form" >
-// 				<h3>Sign Up Here!</h3>
-// 				<form onSubmit={this.handleSubmit}>
-// 					<label htmlFor="username">Username</label>
-// 					<input className="username-signup-form" type="text" value={this.state.username} onChange={this.handleLoginFormChange}/>
-// 					<br/>
-// 					<label htmlFor="password">Email</label>
-// 					<input className="username-signup-form" type="text" value={this.state.email} onChange={this.handleLoginFormChange}/>
-// 					<br/>
-// 					<label htmlFor="password">Password</label>
-// 					<input className="password-login-form" type="text" value={this.state.password} onChange={this.handleLoginFormChange}/>
-// 					<br/>
-// 					<input type="submit"/>
-// 				</form>
-// 			</div>)
-// 	}
-// })
+var SignUpForm = React.createClass({
+	getInitialState: function() {
+		return {
+			username: '',
+			email: '',
+			password: ''
+		}
+	},
+	handleSignupFormChange: function(stateName, e) {
+		var change = {};
+		change[stateName] = e.target.value;
+		console.log(change)
+		this.setState(change);
+	},
+	handleSubmit: function(e) {
+		e.preventDefault();
+		console.log('WAT THE HELL');
+		var username = this.state.username.trim();
+		var email = this.state.email.trim();
+		var password = this.state.password.trim();
+		this.signupAJAX(username, email, password);
+	},
+	signupAJAX: function(username, email, password) {
+		$.ajax({
+			url: '/users',
+			method: 'POST',
+			data: {
+				username: username,
+				email: email,
+				password: password
+			}
+		}).done(function(data) {
+			console.log(data);
+		});
+	},
+	render: function() {
+		return(
+			<div className='signup-form'>
+				<h3>Sign Up</h3>
+				<form onSubmit={this.handleSubmit}>
+					<label htmlFor='username'>Username</label>
+					<input
+						className='username-signup-form'
+						type='text'
+						value={this.state.username}
+						onChange={this.handleSignupFormChange.bind(this, 'username')}
+					/>
+					<label htmlFor='email'>E-Mail</label>
+					<input
+						className='email-signup-form'
+						type='text'
+						value={this.state.email}
+						onChange={this.handleSignupFormChange.bind(this, 'email')}
+					/>
+					<label htmlFor='password'>Password</label>
+					<input
+						className='password-signup-form'
+						type='text'
+						value={this.state.password}
+						onChange={this.handleSignupFormChange.bind(this, 'password')}
+					/>
+					<input type='submit'/>
+				</form>
+			</div>
+		);
+	}
+});
 
 ReactDOM.render(<App/>, document.getElementById('main-container'));
