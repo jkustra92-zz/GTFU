@@ -21,11 +21,7 @@ var App = React.createClass({
 	changeLogin: function() {
 		this.setState({
 			authenticatedUser: true
-<<<<<<< HEAD
 		});
-=======
-		})
->>>>>>> 0616_0201PM
 	},
 	render: function() {
 		console.log('authenticatedUser: ', this.state.authenticatedUser);
