@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('../config/passport.js');
 var User = require('../models/users.js');
-var Puppy = require('../models/zip.js');
+var Zipcode = require('../models/zip.js');
 
 
 //==========================================
