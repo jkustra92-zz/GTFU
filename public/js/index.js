@@ -11,6 +11,7 @@ var App = React.createClass({
 			cookieCheck = '';
 		}
 		return {
+			userId: "",
 			authenticatedUser: cookieCheck
 		};
 	},
@@ -22,8 +23,9 @@ var App = React.createClass({
 			authenticatedUser: '',
 		});
 	},
-	changeLogin: function() {
+	changeLogin: function(token, dataId) {
 		this.setState({
+			userId: dataId,
 			authenticatedUser: true
 		});
 	},
@@ -32,7 +34,7 @@ var App = React.createClass({
 		// console.log('cookie:', document.cookie);
 		if(this.state.authenticatedUser === true) {
 			return (
-				<Page onChange={this.eatTheCookie} />									
+				<Page userId = {this.state.userId} onChange={this.eatTheCookie} />									
 			)																																			
 		}else{
 			return (
@@ -57,7 +59,8 @@ var LoginForm = React.createClass({
 		return {
 			username: this.props.initialLoginCheck,
 			password: this.props.initialLoginCheck,
-			loginStatus: this.props.initialLoginCheck
+			loginStatus: this.props.initialLoginCheck,
+			userId: ""
 		};
 	},
 	handleLoginFormChange: function(stateName, e) {
@@ -83,7 +86,8 @@ var LoginForm = React.createClass({
 				console.log('Token acquired.');
 				console.log(data);
 				Cookies.set('jwt_token', data.token);
-				this.props.onChange(data.token)
+				this.setState({userId: data.id})
+				this.props.onChange(data.token, this.state.userId)
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.error(status, err.toString());
@@ -228,6 +232,7 @@ var Page = React.createClass({
 		return (
 			<div>
 				<LogOut onChange = {this.props.onChange} />
+				<p> {this.props.userId} </p>
 				<Weather />
 			</div>
 		);
