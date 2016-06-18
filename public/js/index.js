@@ -232,8 +232,7 @@ var Page = React.createClass({
 		return (
 			<div>
 				<LogOut onChange = {this.props.onChange} />
-				<p> {this.props.userId} </p>
-				<Weather />
+				<Weather userId ={this.props.userId} />
 			</div>
 		);
 	}
@@ -261,6 +260,37 @@ var LogOut = React.createClass({
 });
 
 var Weather = React.createClass({
+	getInitialState: function(){
+		return (
+			{
+				locations: this.getUsersLocations(this.props.userId),
+				currentWeather: null
+			}	
+		)
+	},
+	handleUserZipcodes: function(data){
+		var zipArray = []
+		data.forEach(function(zipcode){
+			zipArray.push(zipcode)
+		})
+		console.log(zipArray)
+		// this.setState({locations: zipArray})
+	},
+	getUsersLocations: function(userId){
+		console.log(userId)
+		var self = this;
+		var callback = function(data){
+			self.handleUserZipcodes(data)
+		}
+		// console.log("here in the function")
+		$.ajax({
+			url: "/users/" + userId,
+			method: "GET"
+		}).done(function(data){
+			console.log(data)
+			callback(data);
+		})
+	},
 	weatherAJAX: function(zipcode) {
 		$.ajax({
 			url: "/users/weather/" + zipcode,
@@ -273,7 +303,8 @@ var Weather = React.createClass({
 		return (
 			<div>
 				<ZipSearch weatherData={this.weatherAJAX} />
-
+				<WeatherSidebar zipCodes = {this.state.locations} />
+				<WeatherDisplay />
 			</div>
 		);
 	}
@@ -306,6 +337,7 @@ var ZipSearch = React.createClass({
 					placeholder="Zip Code"
 					value={this.state.searchText}
 					onChange={this.handleLocationChange}
+					maxlength="5"
 				/>
 				<button type="submit">Submit</button>
 			</form>		
@@ -313,19 +345,34 @@ var ZipSearch = React.createClass({
 	}
 });
 
-// var WeatherSidebar = React.createClass({
-	handleClick: function(data) {
-		this.props.
-	}
-// });
-
-// var WeatherDisplay = React.createClass({
+var WeatherSidebar = React.createClass({
+	// handleClick: function(data) {
+	// 	$.ajax({
+	// 		url
+	// 	});
+	// },
 	render: function() {
-		return(
+		this.props.zipCodes.map(function(zipcode) {
+			return (
+				<p>{zipcode}</p>
+			);
+		})
+	}
+});
 
+var WeatherDisplay = React.createClass({
+	render: function() {
+		return (
+			<div>
+				<p>{this.props.name}</p>
+				<p>{this.props.temp}</p>
+				<p>{this.props.desc}</p>
+				<p>{this.props.min}</p>
+				<p>{this.props.max}</p>
+			</div>
 		);
 	}
-// });
+});
 
 
 //=================
