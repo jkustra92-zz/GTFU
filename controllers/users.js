@@ -95,7 +95,7 @@ router.get('/news/:topic', function(req, res){
       var dataObject = {
       'title': data.results[i].title,                        //so since you can't make multiple returns in server, have to come up with some way to put these all into an array of objects.
       'url': data.results[i].url,
-      'data': data.results[i].abstract
+      'abstract': data.results[i].abstract
       }
       theData.push(dataObject)
     }

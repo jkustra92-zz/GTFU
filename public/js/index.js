@@ -13,7 +13,7 @@ var App = React.createClass({
 			cookieCheck = '';
 		}
 		return {
-			userId: "",
+			userId: '',
 			authenticatedUser: cookieCheck
 		};
 	},
@@ -205,7 +205,7 @@ var SignUpForm = React.createClass({
 			}
 		}).done(function(data) {
 			console.log(data);
-			Cookies.set('temp', 'asdfghjkl;');
+			Cookies.set('temp', 'FAWRKS');
 			callback();
 		});
 	},
@@ -236,7 +236,7 @@ var SignUpForm = React.createClass({
 						value={this.state.password}
 						onChange={this.handleSignupFormChange.bind(this, 'password')}
 					/>
-					<input type='submit'/>
+					<input type='submit' />
 				</form>
 			</div>
 		);
@@ -253,8 +253,8 @@ var Page = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<LogOut onChange = {this.props.onChange} />
-				<Weather userId ={this.props.userId} />
+				<LogOut onChange={this.props.onChange} />
+				<News />
 			</div>
 		);
 	}
@@ -285,129 +285,216 @@ var LogOut = React.createClass({
 // WEATHER
 //=================
 
-//Using ajax, requests the api w/ 
-//entered zipcode
-var Weather = React.createClass({
-	getInitialState: function(){
-		return (
-			{
-				locations: this.getUsersLocations(this.props.userId),
-				currentWeather: null
-			}	
-		)
-	},
-	handleUserZipcodes: function(data){
-		var zipArray = []
-		data.forEach(function(zipcode){
-			zipArray.push(zipcode)
-		})
-		console.log(zipArray)
-		// this.setState({locations: zipArray})
-	},
-	getUsersLocations: function(userId){
-		console.log(userId)
-		var self = this;
-		var callback = function(data){
-			self.handleUserZipcodes(data)
-		}
-		// console.log("here in the function")
-		$.ajax({
-			url: "/users/" + userId,
-			method: "GET"
-		}).done(function(data){
-			console.log(data)
-			callback(data);
-		})
-	},
-	weatherAJAX: function(zipcode) {
-		$.ajax({
-			url: "/users/weather/" + zipcode,
-			method: "GET"
-		}).done(function(data){
-			console.log(data)
-		})
-	},
-	//the zipsearch takes that data from
-	//weather ajax and renders it
-	render: function() {
-		return (
-			<div>
-				<ZipSearch weatherData={this.weatherAJAX} />
-				<WeatherSidebar zipCodes = {this.state.locations} />
-				<WeatherDisplay />
-			</div>
-		);
-	}
-});
-//searching zipcode
-var ZipSearch = React.createClass({
+// //Using ajax, requests the api w/ 
+// //entered zipcode
+// var Weather = React.createClass({
+// 	getInitialState: function(){
+// 		return (
+// 			{
+// 				locations: this.getUsersLocations(this.props.userId),
+// 				currentWeather: null
+// 			}	
+// 		)
+// 	},
+// 	handleUserZipcodes: function(data){
+// 		var zipArray = []
+// 		data.forEach(function(zipcode){
+// 			zipArray.push(zipcode)
+// 		})
+// 		console.log(zipArray)
+// 		// this.setState({locations: zipArray})
+// 	},
+// 	getUsersLocations: function(userId){
+// 		console.log(userId)
+// 		var self = this;
+// 		var callback = function(data){
+// 			self.handleUserZipcodes(data)
+// 		}
+// 		// console.log("here in the function")
+// 		$.ajax({
+// 			url: "/users/" + userId,
+// 			method: "GET"
+// 		}).done(function(data){
+// 			console.log(data)
+// 			callback(data);
+// 		})
+// 	},
+// 	weatherAJAX: function(zipcode) {
+// 		$.ajax({
+// 			url: "/users/weather/" + zipcode,
+// 			method: "GET"
+// 		}).done(function(data){
+// 			console.log(data)
+// 		})
+// 	},
+// 	//the zipsearch takes that data from
+// 	//weather ajax and renders it
+// 	render: function() {
+// 		return (
+// 			<div>
+// 				<ZipSearch weatherData={this.weatherAJAX} />
+// 				<WeatherSidebar zipCodes = {this.state.locations} />
+// 				<WeatherDisplay />
+// 			</div>
+// 		);
+// 	}
+// });
+// //searching zipcode
+// var ZipSearch = React.createClass({
+// 	getInitialState: function() {
+// 		return {
+// 			searchText: ''
+// 		}
+// 	},
+// 	//that search text is given a target value
+// 	//to call upon 
+// 	handleLocationChange: function(e) {
+// 		console.log(e.target.value);
+// 		this.setState({
+// 			searchText: e.target.value
+// 		});
+// 	},
+// 	//the search text becomes zip
+// 	handleSearch: function(e) {
+// 		e.preventDefault();
+// 		var zip = this.state.searchText.trim();
+// 		console.log(zip);
+// 		this.props.weatherData(zip);
+// 		console.log("Hi.");
+// 	},
+// 	//rendering the zip 
+// 	render: function() {
+// 		return (
+// 			<form onSubmit={this.handleSearch}>
+// 				<input
+// 					type='text'
+// 					placeholder='Zip Code'
+// 					value={this.state.searchText}
+// 					onChange={this.handleLocationChange}
+// 					maxlength="5"
+// 				/>
+// 				<button type='submit'>Submit</button>
+// 			</form>		
+// 		);
+// 	}
+// });
+
+// var WeatherSidebar = React.createClass({
+// 	// handleClick: function(data) {
+// 	// 	$.ajax({
+// 	// 		url
+// 	// 	});
+// 	// },
+// 	render: function() {
+// 		this.props.zipCodes.map(function(zipcode) {
+// 			return (
+// 				<p>{zipcode}</p>
+// 			);
+// 		})
+// 	}
+// });
+
+// var WeatherDisplay = React.createClass({
+// 	render: function() {
+// 		return (
+// 			<div>
+// 				<p>{this.props.name}</p>
+// 				<p>{this.props.temp}</p>
+// 				<p>{this.props.desc}</p>
+// 				<p>{this.props.min}</p>
+// 				<p>{this.props.max}</p>
+// 			</div>
+// 		);
+// 	}
+// });
+
+//=================
+// News
+//=================
+var News = React.createClass({
 	getInitialState: function() {
-		return {
-			searchText: ''
-		}
+		return (
+			{topics: ['home', 'world', 'national', 'sports', 'business'],
+			 home: true,
+			 currentTopic: null
+			}
+		);
 	},
-	//that search text is given a target value
-	//to call upon 
-	handleLocationChange: function(e) {
-		console.log(e.target.value);
-		this.setState({
-			searchText: e.target.value
+	getArticles: function(topic) {
+		console.log('wat')
+		$.ajax({																	
+			url: '/users/news/' + topic,		
+			method: 'GET',
+			success: function(data) {
+				console.log(data)
+				this.setState({currentTopic: data})
+			}.bind(this)
 		});
 	},
-	//the search text becomes zip
-	handleSearch: function(e) {
-		e.preventDefault();
-		var zip = this.state.searchText.trim();
-		console.log(zip);
-		this.props.weatherData(zip);
-		console.log("Hi.");
-	},
-	//rendering the zip 
-	render: function() {
-		return (
-			<form onSubmit={this.handleSearch}>
-				<input
-					type='text'
-					placeholder='Zip Code'
-					value={this.state.searchText}
-					onChange={this.handleLocationChange}
-					maxlength="5"
-				/>
-				<button type='submit'>Submit</button>
-			</form>		
-		);
-	}
-});
-
-var WeatherSidebar = React.createClass({
-	// handleClick: function(data) {
-	// 	$.ajax({
-	// 		url
-	// 	});
-	// },
-	render: function() {
-		this.props.zipCodes.map(function(zipcode) {
-			return (
-				<p>{zipcode}</p>
-			);
-		})
-	}
-});
-
-var WeatherDisplay = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<p>{this.props.name}</p>
-				<p>{this.props.temp}</p>
-				<p>{this.props.desc}</p>
-				<p>{this.props.min}</p>
-				<p>{this.props.max}</p>
+				<NewsSidebar
+					topics={this.state.topics}
+					getArticles={this.getArticles}
+				/>
+				<NewsDisplay news={this.state.currentTopic}/>
 			</div>
 		);
 	}
 });
 
+var NewsSidebar = React.createClass({
+	getTopic: function(topic) {
+		this.props.getArticles(topic)
+	},
+	render: function() {
+		var self = this;
+		console.log(self);
+		var callback = function(e) {
+			console.log(e.target.value);
+			console.log('wat');
+			self.getTopic(e.target.value);
+		}
+		var topics = this.props.topics.map(function(topic) {
+			return (
+					<p
+						onClick={callback}
+						value={topic}
+					>
+						{topic}
+					</p>
+			);
+		});
+		return (
+			<div> {topics} </div>
+		);
+	}
+});
+
+var NewsDisplay = React.createClass({
+	render: function() {
+		var news = this.props.news;
+		if (news == null){
+			return (
+				null
+			)
+		} else {
+			var articles = this.props.news.map(function(article) {
+				return (
+					<div>
+						<a href={article.url}>{article.title}</a>
+						<p>{article.abstract}</p>
+						<img src={article.img} />
+					</div>
+				);
+			});
+		};
+		return (
+			<div> {articles} </div>
+		);
+	}
+});
 
 //=================
 // test ajax calls
