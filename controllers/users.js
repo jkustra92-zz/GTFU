@@ -1,3 +1,7 @@
+//==============
+// requirements
+//==============
+
 var express = require('express');
 var router = express.Router();
 var passport = require('../config/passport.js');
@@ -30,41 +34,60 @@ router.post('/', function(req, res) {
 // routes that require authentication
 //====================================
 
-// router.use(passport.authenticate('jwt', { session: false }));
+// router.use(passport.authenticate('jwt', { session: false }));        //commented out for testing purposes. will be commented back in later. or it should be, anyway.
 
-
-router.get("/:id", function(req, res, next) {
+//==================================
+// get all the zip codes for a user
+//==================================
+router.get("/:id", function(req, res, next) {                   //we might not even need this, but it's good to have
 	User.findById(req.params.id).then(function(user) {
 		res.json(user.zipcodes)
 	});
 });
 
 
-// NYTimes
-router.get("/news/:topic", function(req, res){
+//========================
+// new york times request
+//========================
+
+router.get('/news/:topic', function(req, res){
 	console.log("Starting.");
 	var options = {
-		"url": "https://api.nytimes.com/svc/topstories/v2/" + req.params.topic + ".json",
+		'url': 'https://api.nytimes.com/svc/topstories/v2/' + req.params.topic + '.json',
 		qs: {
-			"api-key": process.env.NYT_KEY}
+			'api-key': process.env.NYT_KEY}
 	 };
 	 request(options, function(err, response, body) {
-	 	console.log(body);
+    var theData = []
+	 	// console.log(body);
+    var data = JSON.parse(body);
+    console.log(typeof data);
+    for(var i = 0; i < 5; i++){
+      var dataObject = {
+      'title': data.results[i].title,                        //so since you can't make multiple returns in server, have to come up with some way to put these all into an array of objects.
+      'url': data.results[i].url
+      }
+      theData.push(dataObject)
+    }
+    console.log(theData);
+    res.send(theData);
 	});
 });
 
-// Weather
-router.get("/weather/:zip", function(req, res) {
+//==========================
+// open weather api request
+//==========================
+
+router.get('/weather/:zip', function(req, res) {
     var zip = req.params.zip;
 		// request("http://api.openweathermap.org/data/2.5/weather?zip=" + zip + ",us" + "&units=metric" + "&appid=" + process.env.APIKEY, function (error, response, body) {   
-    request("http://api.openweathermap.org/data/2.5/weather?zip=" + zip + ",us" + "&units=imperial" + "&appid=" + process.env.APIKEY, function (error, response, body) {
+    request('http://api.openweathermap.org/data/2.5/weather?zip=' + zip + ',us' + '&units=imperial' + '&appid=' + process.env.OPEN_WEATHER_ID, function (error, response, body) {
         var response_data;
         console.log(body);
-    if (!error && response.statusCode == 200) {
-      var weatherData = JSON.parse(body);
-      res.json(weatherData);
-      // res.render("show.ejs", {weatherData});
-    };
+      if (!error && response.statusCode == 200) {
+        var weatherData = JSON.parse(body);
+        res.json(weatherData);
+      };
     });
 });
 

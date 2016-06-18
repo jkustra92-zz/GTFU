@@ -53,7 +53,7 @@ var authController = require('./controllers/auth.js');
 app.use("/auth", authController);
 
 var seedController = require('./controllers/seed.js');
-app.use("/seed/", seedController);
+app.use("/seed", seedController);
 
 //==================
 // server listening

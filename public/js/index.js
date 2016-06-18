@@ -1,4 +1,7 @@
-// The Almighty Application
+// ========================
+// the entire application
+// ========================
+
 var App = React.createClass({
 	getInitialState: function() {
 		var cookieCheck;
@@ -11,7 +14,7 @@ var App = React.createClass({
 			authenticatedUser: cookieCheck
 		};
 	},
-	eatTheCookie: function() { // thanks Joe
+	eatTheCookie: function() { 												// thanks Joe
 		Cookies.remove('jwt_token');
 		console.log(this.state)
 		this.setState({
@@ -28,11 +31,11 @@ var App = React.createClass({
 		// console.log('cookie:', document.cookie);
 		if(this.state.authenticatedUser === true) {
 			return (
-				<TestSuccess onChange={this.eatTheCookie} />
-			)
+				<TestSuccess onChange={this.eatTheCookie} />									
+			)																																			
 		}else{
 			return (
-				<div>
+				<div id = "homepage">
 					<LoginForm
 						initialLoginCheck={this.state.authenticatedUser}
 						onChange={this.changeLogin}
@@ -44,8 +47,10 @@ var App = React.createClass({
 	}
 });
 
+// ======================
+// login form component
+// ======================
 
-// LoginFormComponent
 var LoginForm = React.createClass({
 	getInitialState: function() {
 		return {
@@ -112,7 +117,7 @@ var LoginForm = React.createClass({
 	}
 })
 
-// var TestSuccess = React.createClass({
+// var TestSuccess = React.createClass({							
 // 	handleClick: function(){
 // 		console.log('WAT')
 // 		this.props.onChange()
@@ -132,6 +137,10 @@ var LoginForm = React.createClass({
 // 	}
 // });
 
+//=======================																	
+// signup link component
+//=======================
+
 // var SignUpLink = React.createClass({
 // 	getInitialState: function(){
 // 	return ({clicked: false})
@@ -148,6 +157,10 @@ var LoginForm = React.createClass({
 // 		}
 // 	}
 // });
+
+//========================
+// sign up form component
+//========================
 
 var SignUpForm = React.createClass({
 	getInitialState: function() {
@@ -223,5 +236,31 @@ var SignUpForm = React.createClass({
 		);
 	}
 });
+
+//=================
+// test ajax calls
+//=================
+
+//----------
+// ny times
+//----------
+
+	// $.ajax({																	
+	// 	url: "/users/news/" + topic,		
+	// 	method: "GET"
+	// }).done(function(data){
+	// 	console.log(data)
+	// })
+
+//--------------
+// open weather
+//--------------
+
+// $.ajax({
+// 	url: "/users/weather/" + zipcode,
+// 	method: "GET"
+// }).done(function(data){
+// 	console.log(data)
+// })
 
 ReactDOM.render(<App/>, document.getElementById('main-container'));
