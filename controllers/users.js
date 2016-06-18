@@ -36,15 +36,40 @@ router.post('/', function(req, res) {
 
 // router.use(passport.authenticate('jwt', { session: false }));        //commented out for testing purposes. will be commented back in later. or it should be, anyway.
 
+
+//=====================
+// add a new zip code
+//=====================
+router.post("/", function(req, res) {
+  console.log(req.body);
+  var zipcode = new Zipcode(req.body);
+  zipcode.save(function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Added new zip.");
+    };
+  });
+});
+
+
 //==================================
 // get all the zip codes for a user
 //==================================
 router.get("/:id", function(req, res, next) {                   //we might not even need this, but it's good to have
 	User.findById(req.params.id).then(function(user) {
-		res.json(user.zipcodes)
+		res.json(user.zipcodes);
 	});
 });
 
+//==================================
+// delete a zip code
+//==================================
+router.delete("/:id", function(req, res) {
+  Zipcode.findByIdAndRemove(req.params.id, function() {
+    console.log("Deleted.");
+  });
+});
 
 //========================
 // new york times request
