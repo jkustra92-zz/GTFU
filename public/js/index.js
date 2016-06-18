@@ -245,12 +245,12 @@ var SignUpForm = React.createClass({
 // ny times
 //----------
 
-	// $.ajax({																	
-	// 	url: "/users/news/" + topic,		
-	// 	method: "GET"
-	// }).done(function(data){
-	// 	console.log(data)
-	// })
+// $.ajax({																	
+// 	url: "/users/news/" + topic,		
+// 	method: "GET"
+// }).done(function(data){
+// 	console.log(data)
+// })
 
 //--------------
 // open weather
