@@ -237,4 +237,30 @@ var SignUpForm = React.createClass({
 	}
 });
 
+//=================
+// test ajax calls
+//=================
+
+//----------
+// ny times
+//----------
+
+	// $.ajax({																	
+	// 	url: "/users/news/" + topic,		
+	// 	method: "GET"
+	// }).done(function(data){
+	// 	console.log(data)
+	// })
+
+//--------------
+// open weather
+//--------------
+
+// $.ajax({
+// 	url: "/users/weather/" + zipcode,
+// 	method: "GET"
+// }).done(function(data){
+// 	console.log(data)
+// })
+
 ReactDOM.render(<App/>, document.getElementById('main-container'));
