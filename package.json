@@ -1,10 +1,10 @@
 {
   "name": "template",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -22,5 +22,15 @@
     "passport-jwt": "^2.0.0",
     "passport-local": "^1.0.0",
     "request": "^2.72.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkustra92/GTFO.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jkustra92/GTFO/issues"
+  },
+  "homepage": "https://github.com/jkustra92/GTFO#readme",
+  "description": ""
 }
