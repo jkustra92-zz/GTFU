@@ -40,15 +40,19 @@ router.post('/', function(req, res) {
 //=====================
 // add a new zip code
 //=====================
-router.post("/", function(req, res) {
+router.post("/:id/zips", function(req, res) {
   console.log(req.body);
-  var zipcode = new Zipcode(req.body);
-  zipcode.save(function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Added new zip.");
-    };
+  User.findById(req.params.id).then(function(user){
+    var zipcode = new Zipcode(req.body);
+    zipcode.save(function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Added new zip.");
+      };
+    });
+    user.zipcodes.push(zipcode);
+    user.save(); 
   });
 });
 
