@@ -30,7 +30,7 @@ var App = React.createClass({
 
 	//setting auth user to true to 
 	//keep them logged in
-	changeLogin: function() {
+	changeLogin: function(token, dataId) {
 		this.setState({
 			userId: dataId,
 			authenticatedUser: true
