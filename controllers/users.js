@@ -1,3 +1,7 @@
+//==============
+// requirements
+//==============
+
 var express = require('express');
 var router = express.Router();
 var passport = require('../config/passport.js');
@@ -54,11 +58,18 @@ router.get("/news/:topic", function(req, res){
 			"api-key": process.env.NYT_KEY}
 	 };
 	 request(options, function(err, response, body) {
-	 	console.log(body);
+    var theData = []
+	 	// console.log(body);
     var data = JSON.parse(body);
     console.log(typeof data);
-    console.log(data.results[0].title);
-    console.log(data.results[0].url);
+    for(var i = 0; i < 5; i++){
+      var dataObject = {
+      'title': data.results[i].title,                        //so since you can't make multiple returns in server, have to come up with some way to put these all into an array of objects.
+      'url': data.results[i].url
+      }
+      theData.push(dataObject)
+    }
+    console.log(theData);
 	});
 });
 
