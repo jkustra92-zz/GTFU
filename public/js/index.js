@@ -2,7 +2,9 @@
 // the entire application
 // ========================
 
-var App = React.createClass({
+var App = React.createClass({ 
+	//checking for cookie
+	//true otherwise cookie is an empty string
 	getInitialState: function() {
 		var cookieCheck;
 		if(document.cookie) {
@@ -14,19 +16,24 @@ var App = React.createClass({
 			authenticatedUser: cookieCheck
 		};
 	},
+	//removing cookie and tempory cookies
+	//and returning auth user 
 	eatTheCookie: function() { 												// thanks Joe
 		Cookies.remove('jwt_token');
-		Cookies.remove('temp');
+		Cookies.remove('temp');  
 		console.log(this.state)
 		this.setState({
 			authenticatedUser: '',
 		});
 	},
+	//setting auth user to true to 
+	//keep them logged in
 	changeLogin: function() {
 		this.setState({
 			authenticatedUser: true
 		});
 	},
+	//renders the login form and the signup button
 	render: function() {
 		console.log('authenticatedUser: ', this.state.authenticatedUser);
 		// console.log('cookie:', document.cookie);
@@ -36,7 +43,7 @@ var App = React.createClass({
 			)																																			
 		}else{
 			return (
-				<div id = "homepage">
+				<div id = 'homepage'>
 					<LoginForm
 						initialLoginCheck={this.state.authenticatedUser}
 						onChange={this.changeLogin}
@@ -53,6 +60,7 @@ var App = React.createClass({
 // ======================
 
 var LoginForm = React.createClass({
+	//username to be filled
 	getInitialState: function() {
 		return {
 			username: this.props.initialLoginCheck,
@@ -60,18 +68,21 @@ var LoginForm = React.createClass({
 			loginStatus: this.props.initialLoginCheck
 		};
 	},
+	//whatever changes happen are applied
 	handleLoginFormChange: function(stateName, e) {
 		var change = {};
 		change[stateName] = e.target.value;
 		this.setState(change);
 	},
 	handleSubmit: function(e) {
+		//the user credentials are then saved 
 		e.preventDefault();
 		var username = this.state.username.trim();
 		var password = this.state.password.trim();
 		this.loginAJAX(username, password);
 	},
 	loginAJAX: function(username, password) {
+		//ajax request to save the user creds 
 		$.ajax({
 			url: '/auth',
 			method: 'POST',
@@ -79,6 +90,7 @@ var LoginForm = React.createClass({
 				username: username,
 				password: password
 			},
+			//if saved it console logs
 			success: function(data) {
 				console.log('Token acquired.');
 				console.log(data);
@@ -90,6 +102,7 @@ var LoginForm = React.createClass({
 			}.bind(this)
 		});
 	},
+	//rendering the login form
 	render: function() {
 		return (
 			<div className='login-form'>
@@ -122,6 +135,9 @@ var LoginForm = React.createClass({
 // signup button component
 //=========================
 
+//sign up form, sets user to false
+//when clicked it turns it to true,
+//if false the sign up is rendered
 var SignUpButton = React.createClass({
 	getInitialState: function(){
 	return ({clicked: false})
@@ -143,6 +159,7 @@ var SignUpButton = React.createClass({
 // sign up form component
 //========================
 
+//sign up form; empty strings to be filled
 var SignUpForm = React.createClass({
 	getInitialState: function() {
 		return {
@@ -157,6 +174,8 @@ var SignUpForm = React.createClass({
 		console.log(change)
 		this.setState(change);
 	},
+	//submits the user input
+	//and saves it 
 	handleSubmit: function(e) {
 		e.preventDefault();
 		console.log('WAT THE HELL');
@@ -185,6 +204,7 @@ var SignUpForm = React.createClass({
 			callback();
 		});
 	},
+	//rendering sign up form
 	render: function() {
 		return(
 			<div className='signup-form'>
@@ -223,6 +243,7 @@ var SignUpForm = React.createClass({
 // WITH AUTH
 //=================
 
+//logging out 
 var Page = React.createClass({
 	render: function() {
 		return (
@@ -255,6 +276,12 @@ var LogOut = React.createClass({
 	}	
 });
 
+//=================
+// WEATHER
+//=================
+
+//Using ajax, requests the api w/ 
+//entered zipcode
 var Weather = React.createClass({
 	weatherAJAX: function(zipcode) {
 		$.ajax({
@@ -264,6 +291,8 @@ var Weather = React.createClass({
 			console.log(data)
 		})
 	},
+	//the zipsearch takes that data from
+	//weather ajax and renders it
 	render: function() {
 		return (
 			<div>
@@ -273,36 +302,40 @@ var Weather = React.createClass({
 		);
 	}
 });
-
+//searching zipcode
 var ZipSearch = React.createClass({
 	getInitialState: function() {
 		return {
 			searchText: ''
 		}
 	},
+	//that search text is given a target value
+	//to call upon 
 	handleLocationChange: function(e) {
 		console.log(e.target.value);
 		this.setState({
 			searchText: e.target.value
 		});
 	},
+	//the search text becomes zip
 	handleSearch: function(e) {
 		e.preventDefault();
 		var zip = this.state.searchText.trim();
 		console.log(zip);
 		// this.props.weatherData(zip);
-		console.log("Hi.");
+		console.log('Hi.');
 	},
+	//rendering the zip 
 	render: function() {
 		return (
 			<form onSubmit={this.handleSearch}>
 				<input
-					type="text"
-					placeholder="Zip Code"
+					type='text'
+					placeholder='Zip Code'
 					value={this.state.searchText}
 					onChange={this.handleLocationChange}
 				/>
-				<button type="submit">Submit</button>
+				<button type='submit'>Submit</button>
 			</form>		
 		);
 	}
