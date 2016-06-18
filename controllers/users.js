@@ -32,15 +32,20 @@ router.post('/', function(req, res) {
 
 // router.use(passport.authenticate('jwt', { session: false }));
 
-
-router.get("/:id", function(req, res, next) {
+//==================================
+// get all the zip codes for a user
+//==================================
+router.get("/:id", function(req, res, next) {                   //we might not even need this, but it's good to have
 	User.findById(req.params.id).then(function(user) {
 		res.json(user.zipcodes)
 	});
 });
 
 
-// NYTimes
+//========================
+// new york times request
+//========================
+
 router.get("/news/:topic", function(req, res){
 	console.log("Starting.");
 	var options = {
@@ -50,10 +55,17 @@ router.get("/news/:topic", function(req, res){
 	 };
 	 request(options, function(err, response, body) {
 	 	console.log(body);
+    var data = JSON.parse(body);
+    console.log(typeof data);
+    console.log(data.results[0].title);
+    console.log(data.results[0].url);
 	});
 });
 
-// Weather
+//==========================
+// open weather api request
+//==========================
+
 router.get("/weather/:zip", function(req, res) {
     var zip = req.params.zip;
 		// request("http://api.openweathermap.org/data/2.5/weather?zip=" + zip + ",us" + "&units=metric" + "&appid=" + process.env.APIKEY, function (error, response, body) {   
