@@ -16,6 +16,7 @@ var App = React.createClass({
 	},
 	eatTheCookie: function() { 												// thanks Joe
 		Cookies.remove('jwt_token');
+		Cookies.remove('temp');
 		console.log(this.state)
 		this.setState({
 			authenticatedUser: '',
@@ -31,7 +32,7 @@ var App = React.createClass({
 		// console.log('cookie:', document.cookie);
 		if(this.state.authenticatedUser === true) {
 			return (
-				<TestSuccess onChange={this.eatTheCookie} />									
+				<Page onChange={this.eatTheCookie} />									
 			)																																			
 		}else{
 			return (
@@ -40,7 +41,7 @@ var App = React.createClass({
 						initialLoginCheck={this.state.authenticatedUser}
 						onChange={this.changeLogin}
 					/>
-					<SignUpForm onChange={this.changeLogin}/>
+					<SignUpButton onChange={this.changeLogin}/>
 				</div>
 			);
 		}
@@ -117,46 +118,26 @@ var LoginForm = React.createClass({
 	}
 })
 
-// var TestSuccess = React.createClass({							
-// 	handleClick: function(){
-// 		console.log('WAT')
-// 		this.props.onChange()
-// 	},
-// 	render: function(){
-// 		return (
-// 			<div>
-// 				<button
-// 					onClick={this.handleClick}
-// 					id='logout-button'
-// 					>
-// 					Log Out
-// 				</button>
-// 				<h1>hello!</h1>
-// 			</div>
-// 		);
-// 	}
-// });
+//=========================																	
+// signup button component
+//=========================
 
-//=======================																	
-// signup link component
-//=======================
-
-// var SignUpLink = React.createClass({
-// 	getInitialState: function(){
-// 	return ({clicked: false})
-// 	},
-// 	handleClick: function(){
-// 		this.setState({clicked: true})
-// 	},
-// 	render: function() {
-// 		if (this.state.clicked == false){
-// 			return(<a href='#' onClick = {this.handleClick}>sign up!</a>)
-// 		}else{
-// 			return(
-// 				<SignUpForm/>)
-// 		}
-// 	}
-// });
+var SignUpButton = React.createClass({
+	getInitialState: function(){
+	return ({clicked: false})
+	},
+	handleClick: function(){
+		this.setState({clicked: true})
+	},
+	render: function() {
+		if (this.state.clicked == false){
+			return(<button onClick = {this.handleClick}>sign up!</button>)
+		}else{
+			return(
+				<SignUpForm onChange={this.changeLogin}/>)
+		}
+	}
+});
 
 //========================
 // sign up form component
@@ -237,6 +218,105 @@ var SignUpForm = React.createClass({
 	}
 });
 
+
+//=================
+// WITH AUTH
+//=================
+
+var Page = React.createClass({
+	render: function() {
+		return (
+			<div>
+				<LogOut onChange = {this.props.onChange} />
+				<Weather />
+			</div>
+		);
+	}
+});
+
+var LogOut = React.createClass({
+	handleClick: function() {
+		console.log('WAT')
+		console.log(this.props.onChange);
+		this.props.onChange();
+	},
+	render: function() {
+		console.log(this.props.onChange);
+		return (
+			<div>
+				<button
+					onClick={this.handleClick}
+					id='logout-button'
+					>
+					Log Out
+				</button>
+			</div>
+		);
+	}	
+});
+
+var Weather = React.createClass({
+	weatherAJAX: function(zipcode) {
+		$.ajax({
+			url: "/users/weather/" + zipcode,
+			method: "GET"
+		}).done(function(data){
+			console.log(data)
+		})
+	},
+	render: function() {
+		return (
+			<div>
+				<ZipSearch weatherData={this.weatherAJAX} />
+
+			</div>
+		);
+	}
+});
+
+var ZipSearch = React.createClass({
+	getInitialState: function() {
+		return {
+			searchText: ''
+		}
+	},
+	handleLocationChange: function(e) {
+		console.log(e.target.value);
+		this.setState({
+			searchText: e.target.value
+		});
+	},
+	handleSearch: function(e) {
+		e.preventDefault();
+		var zip = this.state.searchText.trim();
+		console.log(zip);
+		// this.props.weatherData(zip);
+		console.log("Hi.");
+	},
+	render: function() {
+		return (
+			<form onSubmit={this.handleSearch}>
+				<input
+					type="text"
+					placeholder="Zip Code"
+					value={this.state.searchText}
+					onChange={this.handleLocationChange}
+				/>
+				<button type="submit">Submit</button>
+			</form>		
+		);
+	}
+});
+
+// var WeatherSidebar = React.createClass({
+
+// });
+
+// var WeatherDisplay = React.createClass({
+
+// });
+
+
 //=================
 // test ajax calls
 //=================
@@ -263,4 +343,4 @@ var SignUpForm = React.createClass({
 // 	console.log(data)
 // })
 
-ReactDOM.render(<App/>, document.getElementById('main-container'));
+ReactDOM.render(<App />, document.getElementById('main-container'));
