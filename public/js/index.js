@@ -295,7 +295,7 @@ var ZipSearch = React.createClass({
 		e.preventDefault();
 		var zip = this.state.searchText.trim();
 		console.log(zip);
-		// this.props.weatherData(zip);
+		this.props.weatherData(zip);
 		console.log("Hi.");
 	},
 	render: function() {
@@ -314,11 +314,17 @@ var ZipSearch = React.createClass({
 });
 
 // var WeatherSidebar = React.createClass({
-
+	handleClick: function(data) {
+		this.props.
+	}
 // });
 
 // var WeatherDisplay = React.createClass({
+	render: function() {
+		return(
 
+		);
+	}
 // });
 
 
