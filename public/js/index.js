@@ -296,15 +296,17 @@ var LogOut = React.createClass({
 // 			}	
 // 		)
 // 	},
-// 	handleUserZipcodes: function(data){
+// 	handleUserZipcodes: function(data) {
 // 		var zipArray = []
-// 		data.forEach(function(zipcode){
+// 		console.log('handleUserZipcodes');
+// 		data.forEach(function(zipcode) {
 // 			zipArray.push(zipcode)
 // 		})
 // 		console.log(zipArray)
 // 		// this.setState({locations: zipArray})
 // 	},
-// 	getUsersLocations: function(userId){
+// 	getUsersLocations: function(userId) {
+// 		console.log('getUsersLocations');
 // 		console.log(userId)
 // 		var self = this;
 // 		var callback = function(data){
@@ -315,6 +317,7 @@ var LogOut = React.createClass({
 // 			url: "/users/" + userId,
 // 			method: "GET"
 // 		}).done(function(data){
+// 			console.log("Get database information.")
 // 			console.log(data)
 // 			callback(data);
 // 		})
@@ -325,6 +328,7 @@ var LogOut = React.createClass({
 // 			method: "GET"
 // 		}).done(function(data){
 // 			console.log(data)
+// 			console.log("Send API request.")
 // 		})
 // 	},
 // 	//the zipsearch takes that data from
@@ -349,6 +353,7 @@ var LogOut = React.createClass({
 // 	//that search text is given a target value
 // 	//to call upon 
 // 	handleLocationChange: function(e) {
+// 		console.log("handleLocationChange");
 // 		console.log(e.target.value);
 // 		this.setState({
 // 			searchText: e.target.value
@@ -356,6 +361,7 @@ var LogOut = React.createClass({
 // 	},
 // 	//the search text becomes zip
 // 	handleSearch: function(e) {
+// 		console.log("handleSearch");
 // 		e.preventDefault();
 // 		var zip = this.state.searchText.trim();
 // 		console.log(zip);
@@ -386,11 +392,12 @@ var LogOut = React.createClass({
 // 	// 	});
 // 	// },
 // 	render: function() {
-// 		this.props.zipCodes.map(function(zipcode) {
+// 		// this.props.zipCodes.map(function(zipcode) {
 // 			return (
-// 				<p>{zipcode}</p>
+// 				<div>{this.props.zipCodes}</div>
+// 				// <p>{zipcode}</p>
 // 			);
-// 		})
+// 		// })
 // 	}
 // });
 
@@ -458,12 +465,12 @@ var NewsSidebar = React.createClass({
 		}
 		var topics = this.props.topics.map(function(topic) {
 			return (
-					<p
+					<div // changed from <p> to <div>
 						onClick={callback}
 						value={topic}
 					>
 						{topic}
-					</p>
+					</div>
 			);
 		});
 		return (
