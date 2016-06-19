@@ -1,5 +1,21 @@
+@font-face {
+  font-family: 'header';
+  src: url('../fonts/fontello.ttf');
+}
+
 * {
 	font-family: 'Montserrat', sans-serif;
+}
+
+header {
+	font-family: 'Pacifico', cursive;
+	font-size: 64px;
+	text-align: center;
+}
+
+span {
+	font-size: 80px;
+	font-family: 'header';
 }
 
 body {
@@ -11,15 +27,16 @@ body {
 }
 
 #topics-container {
-	border: 1px solid black;
 	position: absolute;
 	width: 150px;
 	text-align: center;
+	border-right: none;
 }
 
 .topics {
 	border: 1px solid black;
-	height: 88px;
+	border-radius: 10px 0 0 10px;
+	height: 89px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -28,16 +45,18 @@ body {
 }
 
 #articles-container {
+	border: 1px solid black;
 	margin-left: 150px;
 	position: absolute;
 	width: 550px;
-	height: 450px;
+	height: 449px;
+	border-radius: 0 15px 15px 0;
 	display: flex;
 	flex-direction: column;
 }
 
 .article {
-	padding: 0px 5px 2px 5px;
+	padding: 0px 7px 2px 7px;
 	text-align: justify;
 	flex: 1;
 }
