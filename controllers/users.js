@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
 // routes that require authentication
 //====================================
 
-// router.use(passport.authenticate('jwt', { session: false }));        //commented out for testing purposes. will be commented back in later. or it should be, anyway.
+router.use(passport.authenticate('jwt', { session: false }));        //commented out for testing purposes. will be commented back in later. or it should be, anyway.
 
 
 //=====================
@@ -71,11 +71,26 @@ router.get("/:id", function(req, res, next) {                   //we might not e
 //==================================
 // delete a zip code
 //==================================
-router.delete("/:id", function(req, res) {
-  Zipcode.findByIdAndRemove(req.params.id, function() {
-    console.log("Deleted.");
+
+router.delete('/:id/zipcodes/:zipid', function(req, res) {
+  console.log(req.params);
+  User.findOneAndUpdate(
+    { _id: req.params.id}, 
+    {$pull: {zipcodes: {_id: req.params.zipid}}},
+    function(err, user) {
+      if(err) {
+        console.log(err)
+      } else {
+        user.save(function(err, book){
+          User.findById(user._id).then(function(user) {
+            res.send(user);
+          });
+        });
+      }
   });
+  console.log("i did it! i deleted the thing!")
 });
+
 
 //========================
 // new york times request

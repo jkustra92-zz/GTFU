@@ -332,7 +332,12 @@ var Weather = React.createClass({
 		return (
 			<div>
 				<ZipSearch weatherData = {this.weatherAJAX} />
-				<WeatherSidebar weatherData = {this.weatherAJAX} zipCodes = {this.state.locations} />
+				<WeatherSidebar 
+					weatherData = {this.weatherAJAX} 
+					zipCodes = {this.state.locations} 
+					userId = {this.props.userId}
+					render = {this.getUsersLocations}
+				/>
 				<WeatherDisplay 
 					currentWeather = {this.state.currentWeather} 
 					zipCode = {this.state.zip} 
@@ -343,7 +348,10 @@ var Weather = React.createClass({
 	}
 });
 
+//------------------
 //searching zipcode
+//------------------
+
 var ZipSearch = React.createClass({
 	getInitialState: function() {
 		return {
@@ -384,9 +392,27 @@ var ZipSearch = React.createClass({
 	}
 });
 
+//-----------------
+// weather sidebar
+//-----------------
+
 var WeatherSidebar = React.createClass({
-	handleDelete: function(data) {
-		console.log("hallo")
+	handleDelete: function(zipcode) {
+		// console.log("hallo")
+		// console.log(this.props.userId)
+		// console.log(zipcode)
+		var self = this;
+			var callback = function(userId){
+			self.props.render(userId);
+		};
+		$.ajax({
+			url: "/users/" + this.props.userId + "/zipcodes/" + zipcode,
+			method: "DELETE",
+			success: function(data){
+				console.log(data)
+				callback(data._id)
+			}
+		})
 	},
 	lookUp: function(zip){
 		this.props.weatherData(zip);
@@ -400,8 +426,10 @@ var WeatherSidebar = React.createClass({
 			var zip = e.target.value
 			self.lookUp(zip)
 		}
-		var callback2 = function(){
-			self.handleDelete()
+		var callback2 = function(e){
+			console.log(e.target.value)
+			var zipcode = e.target.value
+			self.handleDelete(zipcode)
 		}
 		var zips = this.props.zipCodes;
 		if (zips == null){
@@ -417,7 +445,10 @@ var WeatherSidebar = React.createClass({
 							value={zipcode.zipcode}>
 							{zipcode.zipcode}
 						</p>
-						<button onClick = {callback2}>delete</button>
+						<button 
+							onClick = {callback2}
+							value={zipcode._id}
+						>delete</button>
 					</div>
 				);
 			});
@@ -427,6 +458,10 @@ var WeatherSidebar = React.createClass({
 		);
 	}
 });
+
+//-----------------
+// weather display
+//-----------------
 
 var WeatherDisplay = React.createClass({
 	addToDatabase: function(userId){
@@ -514,6 +549,10 @@ var News = React.createClass({
 	}
 });
 
+//--------------
+// news sidebar
+//--------------
+
 var NewsSidebar = React.createClass({
 	getTopic: function(topic) {
 		this.props.getArticles(topic)
@@ -541,6 +580,10 @@ var NewsSidebar = React.createClass({
 		);
 	}
 });
+
+//--------------
+// news display
+//--------------
 
 var NewsDisplay = React.createClass({
 	render: function() {
