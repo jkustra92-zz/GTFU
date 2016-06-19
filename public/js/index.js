@@ -30,7 +30,7 @@ var App = React.createClass({
 
 	//setting auth user to true to 
 	//keep them logged in
-	changeLogin: function(token, dataId) {
+	changeLogin: function(dataId) {
 		this.setState({
 			userId: dataId,
 			authenticatedUser: true
@@ -51,7 +51,7 @@ var App = React.createClass({
 						initialLoginCheck={this.state.authenticatedUser}
 						onChange={this.changeLogin}
 					/>
-					<SignUpButton onChange={this.changeLogin}/>
+					<SignUpForm onChange={this.changeLogin}/>
 				</div>
 			);
 		}
@@ -99,7 +99,7 @@ var LoginForm = React.createClass({
 				console.log('Token acquired.');
 				console.log(data);
 				Cookies.set('jwt_token', data.token);
-				this.props.onChange(data.token, data.id)
+				this.props.onChange(data.id)
 			}.bind(this),
 			error: function(xhr, status, err) {
 				console.error(status, err.toString());
@@ -154,7 +154,7 @@ var SignUpButton = React.createClass({
 			return(<button onClick = {this.handleClick}>sign up!</button>)
 		}else{
 			return(
-				<SignUpForm onChange={this.changeLogin}/>)
+				<SignUpButton onChange={this.props.changeLogin}/>)
 		}
 	}
 });
@@ -190,8 +190,9 @@ var SignUpForm = React.createClass({
 	},
 	signupAJAX: function(username, email, password) {
 		var self = this;
-		var callback = function() {
-			self.props.onChange();
+		console.log(this.props.onChange);
+		var callback = function(userId) {
+			self.props.onChange(userId);
 		}
 
 		$.ajax({
@@ -201,12 +202,13 @@ var SignUpForm = React.createClass({
 				username: username,
 				email: email,
 				password: password
-			}
-		}).done(function(data) {
-			console.log(data);
-			Cookies.set('temp', 'FAWRKS');
-			callback();
-		});
+			},
+			success: function(data){
+				console.log(data);
+				Cookies.set('temp', 'FAWRKS');
+				callback(data._id);
+			}.bind(this)
+		})
 	},
 	//rendering sign up form
 	render: function() {
