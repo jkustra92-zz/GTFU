@@ -1,11 +1,47 @@
-#topics {
-	
+* {
+	font-family: 'Montserrat', sans-serif;
+}
+
+body {
+	font-size: 15px;
+}
+
+#news-container {	
+	position: relative;
+}
+
+#topics-container {
+	border: 1px solid black;
+	position: absolute;
+	width: 150px;
+	text-align: center;
+}
+
+.topics {
+	border: 1px solid black;
+	height: 88px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font-family: 'Pacifico', cursive;
+	font-size: 32px;
 }
 
 #articles-container {
-
+	margin-left: 150px;
+	position: absolute;
+	width: 550px;
+	height: 450px;
+	display: flex;
+	flex-direction: column;
 }
 
-#article {
+.article {
+	padding: 0px 5px 2px 5px;
+	text-align: justify;
+	flex: 1;
+}
 
+#articles-container > div:first-of-type {
+	padding-top: 5px;
 }

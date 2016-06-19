@@ -421,6 +421,17 @@ var News = React.createClass({
 			}
 		);
 	},
+	componentDidMount: function(topic) { // adding componentDidMount to load home topic by default
+	console.log('Starting.');
+		$.ajax({																	
+			url: '/users/news/home',		
+			method: 'GET',
+			success: function(data) {
+				console.log(data)
+				this.setState({currentTopic: data})
+			}.bind(this)
+		});
+	},
 	getArticles: function(topic) {
 		console.log('wat')
 		$.ajax({																	
