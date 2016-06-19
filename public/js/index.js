@@ -332,7 +332,7 @@ var Weather = React.createClass({
 		return (
 			<div>
 				<ZipSearch weatherData = {this.weatherAJAX} />
-				<WeatherSidebar zipCodes = {this.state.locations} />
+				<WeatherSidebar weatherData = {this.weatherAJAX} zipCodes = {this.state.locations} />
 				<WeatherDisplay 
 					currentWeather = {this.state.currentWeather} 
 					zipCode = {this.state.zip} 
@@ -385,13 +385,24 @@ var ZipSearch = React.createClass({
 });
 
 var WeatherSidebar = React.createClass({
-	// handleClick: function(data) {
-	// 	$.ajax({
-	// 		url
-	// 	});
-	// },
+	handleDelete: function(data) {
+		console.log("hallo")
+	},
+	lookUp: function(zip){
+		this.props.weatherData(zip);
+	},
 	render: function() {
 		console.log(this.props.zipCodes)
+		var self = this;
+		var callback = function(e){
+			console.log("i'm working?")
+			console.log(e.target.value)
+			var zip = e.target.value
+			self.lookUp(zip)
+		}
+		var callback2 = function(){
+			self.handleDelete()
+		}
 		var zips = this.props.zipCodes;
 		if (zips == null){
 			return (
@@ -401,7 +412,12 @@ var WeatherSidebar = React.createClass({
 			var locations = zips.map(function(zipcode) {
 				return (
 					<div>
-						{zipcode.zipcode}
+						<p 
+							onClick = {callback}
+							value={zipcode.zipcode}>
+							{zipcode.zipcode}
+						</p>
+						<button onClick = {callback2}>delete</button>
 					</div>
 				);
 			});
