@@ -254,7 +254,6 @@ var Page = React.createClass({
 		return (
 			<div>
 				<LogOut onChange={this.props.onChange} />
-				<Weather userId = {this.props.userId} /> 
 				<News />
 			</div>
 		);
@@ -513,6 +512,7 @@ var WeatherDisplay = React.createClass({
 });
 
 
+
 //=================
 // News
 //=================
@@ -524,6 +524,17 @@ var News = React.createClass({
 			 currentTopic: null
 			}
 		);
+	},
+	componentDidMount: function(topic) { // adding componentDidMount to load home topic by default
+	console.log('Starting.');
+		$.ajax({																	
+			url: '/users/news/home',		
+			method: 'GET',
+			success: function(data) {
+				console.log(data)
+				this.setState({currentTopic: data})
+			}.bind(this)
+		});
 	},
 	getArticles: function(topic) {
 		console.log('wat')
@@ -538,7 +549,8 @@ var News = React.createClass({
 	},
 	render: function() {
 		return (
-			<div>
+			// added id
+			<div id="news-container">
 				<NewsSidebar
 					topics={this.state.topics}
 					getArticles={this.getArticles}
@@ -567,16 +579,18 @@ var NewsSidebar = React.createClass({
 		}
 		var topics = this.props.topics.map(function(topic) {
 			return (
-					<p
+					<div  // changed from <p> to <div>
 						onClick={callback}
 						value={topic}
+						className="topics" // added class
+						id={topic} // added id
 					>
 						{topic}
-					</p>
+					</div>
 			);
 		});
 		return (
-			<div> {topics} </div>
+			<div id="topics-container"> {topics} </div> // added id
 		);
 	}
 });
@@ -595,16 +609,19 @@ var NewsDisplay = React.createClass({
 		} else {
 			var articles = this.props.news.map(function(article) {
 				return (
-					<div>
+					// changed <p> to <br>
+					// removed <img>
+					// added class
+					<div className="article">
 						<a href={article.url}>{article.title}</a>
-						<p>{article.abstract}</p>
-						<img src={article.img} />
+						<br />{article.abstract}
 					</div>
 				);
 			});
 		};
 		return (
-			<div> {articles} </div>
+			// added id
+			<div id="articles-container"> {articles} </div>
 		);
 	}
 });
