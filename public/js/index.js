@@ -255,6 +255,7 @@ var Page = React.createClass({
 			<div>
 				<LogOut onChange={this.props.onChange} />
 				<News />
+				<Weather userId = {this.props.userId}/>
 			</div>
 		);
 	}
