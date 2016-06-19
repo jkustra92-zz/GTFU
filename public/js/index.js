@@ -255,7 +255,6 @@ var Page = React.createClass({
 		return (
 			<div>
 				<LogOut onChange={this.props.onChange} />
-				<Weather userId = {this.props.userId} /> 
 				<News />
 			</div>
 		);
@@ -290,56 +289,56 @@ var LogOut = React.createClass({
 // //Using ajax, requests the api w/ 
 // //entered zipcode
 
-var Weather = React.createClass({
-	getInitialState: function(){
-		return (
-			{
-				locations: this.getUsersLocations(this.props.userId),
-				currentWeather: null
-			}	
-		)
-	},
-	handleUserZipcodes: function(data){
-		var zipArray = []
-		data.forEach(function(zipcode){
-			zipArray.push(zipcode)
-		})
-		console.log(zipArray)
-		this.setState({locations: zipArray})
-	},
-	getUsersLocations: function(userId){
-		console.log(userId)
-		var self = this;
-		var callback = function(data){
-			self.handleUserZipcodes(data)
-		}
-		// console.log("here in the function")
-		$.ajax({
-			url: "/users/" + userId,
-			method: "GET"
-		}).done(function(data){
-			console.log(data)
-			// callback(data);
-		})
-	},
-	weatherAJAX: function(zipcode) {
-		$.ajax({
-			url: "/users/weather/" + zipcode,
-			method: "GET"
-		}).done(function(data){
-			console.log(data)
-		})
-	},
-	//the zipsearch takes that data from
-	//weather ajax and renders it
-	render: function() {
-		return (
-			<div>
-				<WeatherSidebar zipCodes = {this.state.locations} />
-			</div>
-		);
-	}
-});
+// var Weather = React.createClass({
+// 	getInitialState: function(){
+// 		return (
+// 			{
+// 				locations: this.getUsersLocations(this.props.userId),
+// 				currentWeather: null
+// 			}	
+// 		)
+// 	},
+// 	handleUserZipcodes: function(data){
+// 		var zipArray = []
+// 		data.forEach(function(zipcode){
+// 			zipArray.push(zipcode)
+// 		})
+// 		console.log(zipArray)
+// 		this.setState({locations: zipArray})
+// 	},
+// 	getUsersLocations: function(userId){
+// 		console.log(userId)
+// 		var self = this;
+// 		var callback = function(data){
+// 			self.handleUserZipcodes(data)
+// 		}
+// 		// console.log("here in the function")
+// 		$.ajax({
+// 			url: "/users/" + userId,
+// 			method: "GET"
+// 		}).done(function(data){
+// 			console.log(data)
+// 			// callback(data);
+// 		})
+// 	},
+// 	weatherAJAX: function(zipcode) {
+// 		$.ajax({
+// 			url: "/users/weather/" + zipcode,
+// 			method: "GET"
+// 		}).done(function(data){
+// 			console.log(data)
+// 		})
+// 	},
+// 	//the zipsearch takes that data from
+// 	//weather ajax and renders it
+// 	render: function() {
+// 		return (
+// 			<div>
+// 				<WeatherSidebar zipCodes = {this.state.locations} />
+// 			</div>
+// 		);
+// 	}
+// });
 
 // //searching zipcode
 // var ZipSearch = React.createClass({
@@ -381,20 +380,20 @@ var Weather = React.createClass({
 // 	}
 // });
 
-var WeatherSidebar = React.createClass({
-	// handleClick: function(data) {
-	// 	$.ajax({
-	// 		url
-	// 	});
-	// },
-	render: function() {
-		this.props.zipCodes.map(function(zipcode) {
-			return (
-				<p>{zipcode}</p>
-			);
-		})
-	}
-});
+// var WeatherSidebar = React.createClass({
+// 	// handleClick: function(data) {
+// 	// 	$.ajax({
+// 	// 		url
+// 	// 	});
+// 	// },
+// 	render: function() {
+// 		this.props.zipCodes.map(function(zipcode) {
+// 			return (
+// 				<p>{zipcode}</p>
+// 			);
+// 		})
+// 	}
+// });
 
 // var WeatherDisplay = React.createClass({
 // 	render: function() {
@@ -435,7 +434,8 @@ var News = React.createClass({
 	},
 	render: function() {
 		return (
-			<div>
+			// added id
+			<div id="news-container">
 				<NewsSidebar
 					topics={this.state.topics}
 					getArticles={this.getArticles}
@@ -460,16 +460,18 @@ var NewsSidebar = React.createClass({
 		}
 		var topics = this.props.topics.map(function(topic) {
 			return (
-					<p
+					<div  // changed from <p> to <div>
 						onClick={callback}
 						value={topic}
+						className="topics" // added class
+						id={topic} // added id
 					>
 						{topic}
-					</p>
+					</div>
 			);
 		});
 		return (
-			<div> {topics} </div>
+			<div id="topics-container"> {topics} </div> // added id
 		);
 	}
 });
@@ -484,16 +486,19 @@ var NewsDisplay = React.createClass({
 		} else {
 			var articles = this.props.news.map(function(article) {
 				return (
-					<div>
+					// changed <p> to <br>
+					// removed <img>
+					// added class
+					<div className="article">
 						<a href={article.url}>{article.title}</a>
-						<p>{article.abstract}</p>
-						<img src={article.img} />
+						<br />{article.abstract}
 					</div>
 				);
 			});
 		};
 		return (
-			<div> {articles} </div>
+			// added id
+			<div id="articles-container"> {articles} </div>
 		);
 	}
 });
