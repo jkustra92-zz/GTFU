@@ -41,6 +41,7 @@ router.post('/', function(req, res) {
 // add a new zip code
 //=====================
 router.post("/:id/zips", function(req, res) {
+  console.log("i'm here!!");
   console.log(req.body);
   User.findById(req.params.id).then(function(user){
     var zipcode = new Zipcode(req.body);
@@ -52,7 +53,8 @@ router.post("/:id/zips", function(req, res) {
       };
     });
     user.zipcodes.push(zipcode);
-    user.save(); 
+    user.save();
+    res.send(user); 
   });
 });
 

@@ -99,7 +99,6 @@ var LoginForm = React.createClass({
 				console.log('Token acquired.');
 				console.log(data);
 				Cookies.set('jwt_token', data.token);
-				// this.setState({userId: data.id})
 				this.props.onChange(data.token, data.id)
 			}.bind(this),
 			error: function(xhr, status, err) {
@@ -294,40 +293,37 @@ var Weather = React.createClass({
 	getInitialState: function(){
 		return (
 			{
-				locations: this.getUsersLocations(this.props.userId),
-				currentWeather: null
+				locations: null,
+				currentWeather: null,
+				zip: null
 			}	
 		)
 	},
-	handleUserZipcodes: function(data){
-		var zipArray = []
-		data.forEach(function(zipcode){
-			zipArray.push(zipcode)
-		})
-		console.log(zipArray)
-		this.setState({locations: zipArray})
+	//componentDidMount will run the function for the 
+	//Ajax call to render the zipcodes upon loading.
+	componentDidMount: function(){
+		this.getUsersLocations(this.props.userId)
 	},
 	getUsersLocations: function(userId){
 		console.log(userId)
-		var self = this;
-		var callback = function(data){
-			self.handleUserZipcodes(data)
-		}
-		// console.log("here in the function")
 		$.ajax({
 			url: "/users/" + userId,
-			method: "GET"
-		}).done(function(data){
-			console.log(data)
-			// callback(data);
+			method: "GET",
+			success: function(data) {
+				console.log(data)
+				this.setState({locations: data})
+			}.bind(this)
 		})
 	},
 	weatherAJAX: function(zipcode) {
 		$.ajax({
 			url: "/users/weather/" + zipcode,
-			method: "GET"
-		}).done(function(data){
-			console.log(data)
+			method: "GET",
+			success: function(data) {
+				console.log(data)
+				console.log(zipcode)
+				this.setState({currentWeather: data, zip: zipcode})
+			}.bind(this)
 		})
 	},
 	//the zipsearch takes that data from
@@ -335,51 +331,58 @@ var Weather = React.createClass({
 	render: function() {
 		return (
 			<div>
+				<ZipSearch weatherData = {this.weatherAJAX} />
 				<WeatherSidebar zipCodes = {this.state.locations} />
+				<WeatherDisplay 
+					currentWeather = {this.state.currentWeather} 
+					zipCode = {this.state.zip} 
+					userId = {this.props.userId}
+					render = {this.getUsersLocations}/>
 			</div>
 		);
 	}
 });
 
-// //searching zipcode
-// var ZipSearch = React.createClass({
-// 	getInitialState: function() {
-// 		return {
-// 			searchText: ''
-// 		}
-// 	},
-// 	//that search text is given a target value
-// 	//to call upon 
-// 	handleLocationChange: function(e) {
-// 		console.log(e.target.value);
-// 		this.setState({
-// 			searchText: e.target.value
-// 		});
-// 	},
-// 	//the search text becomes zip
-// 	handleSearch: function(e) {
-// 		e.preventDefault();
-// 		var zip = this.state.searchText.trim();
-// 		console.log(zip);
-// 		this.props.weatherData(zip);
-// 		console.log("Hi.");
-// 	},
-// 	//rendering the zip 
-// 	render: function() {
-// 		return (
-// 			<form onSubmit={this.handleSearch}>
-// 				<input
-// 					type='text'
-// 					placeholder='Zip Code'
-// 					value={this.state.searchText}
-// 					onChange={this.handleLocationChange}
-// 					maxlength="5"
-// 				/>
-// 				<button type='submit'>Submit</button>
-// 			</form>		
-// 		);
-// 	}
-// });
+//searching zipcode
+var ZipSearch = React.createClass({
+	getInitialState: function() {
+		return {
+			searchText: ''
+		}
+	},
+	//that search text is given a target value
+	//to call upon 
+	handleLocationChange: function(e) {
+		console.log(e.target.value);
+		this.setState({
+			searchText: e.target.value
+		});
+	},
+	//the search text becomes zip
+	handleSearch: function(e) {
+		e.preventDefault();
+		var zip = this.state.searchText.trim();
+		console.log(zip);
+		this.props.weatherData(zip);
+		console.log("Hi.");
+		this.setState({searchText: ""})
+	},
+	//rendering the zip 
+	render: function() {
+		return (
+			<form onSubmit={this.handleSearch}>
+				<input
+					type='text'
+					placeholder='Zip Code'
+					value={this.state.searchText}
+					onChange={this.handleLocationChange}
+					maxlength="5"
+				/>
+				<button type='submit'>Submit</button>
+			</form>		
+		);
+	}
+});
 
 var WeatherSidebar = React.createClass({
 	// handleClick: function(data) {
@@ -388,27 +391,76 @@ var WeatherSidebar = React.createClass({
 	// 	});
 	// },
 	render: function() {
-		this.props.zipCodes.map(function(zipcode) {
+		console.log(this.props.zipCodes)
+		var zips = this.props.zipCodes;
+		if (zips == null){
 			return (
-				<p>{zipcode}</p>
-			);
-		})
+				null
+			)
+		} else {
+			var locations = zips.map(function(zipcode) {
+				return (
+					<div>
+						{zipcode.zipcode}
+					</div>
+				);
+			});
+		};
+		return (
+			<div> {locations} </div>
+		);
 	}
 });
 
-// var WeatherDisplay = React.createClass({
-// 	render: function() {
-// 		return (
-// 			<div>
-// 				<p>{this.props.name}</p>
-// 				<p>{this.props.temp}</p>
-// 				<p>{this.props.desc}</p>
-// 				<p>{this.props.min}</p>
-// 				<p>{this.props.max}</p>
-// 			</div>
-// 		);
-// 	}
-// });
+var WeatherDisplay = React.createClass({
+	addToDatabase: function(userId){
+		console.log("hey there!")
+		console.log(this.props.render)
+		var self = this;
+		var callback = function(userId){
+			self.props.render(userId);
+		};
+		$.ajax({
+			url: "/users/" + userId + "/zips",
+			method: "POST",
+			data: {zipcode: this.props.zipCode},
+			success: function(data){
+				console.log(this);
+				console.log("it's there. or it should be. idk. hopefully.")
+				console.log(data._id)
+				callback(data._id);
+				// this.props.render(this.props.userId)
+			}
+		})
+	},
+	handleClick: function(){
+		console.log(this.props.zipCode)
+		console.log(this.props.userId)
+		// console.log(this.props.render)
+		this.addToDatabase(this.props.userId)
+	},
+	render: function() {
+		console.log(this.props.currentWeather)
+		var weather = this.props.currentWeather;
+		if (weather == null){
+			return (
+				null
+			)
+		} else {
+				return (
+					<div zip = {weather._id}>
+						<p>{weather.name}</p>
+						<p>{weather.main.temp}</p>
+						<p>{weather.weather[0].description}</p>
+						<p>{weather.main.temp_max}</p>
+						<p>{weather.main.temp_min}</p>
+						<button onClick = {this.handleClick}>add</button>
+				</div>
+			);
+		}
+	}
+});
+
 
 //=================
 // News
