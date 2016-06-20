@@ -4,8 +4,9 @@ var LocalStrategy = require('passport-local').Strategy;
 var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
 var JwtOpts = {};
-
+var flash = require("express-flash");
 var util = require("util");
+
 JwtOpts.jwtFromRequest = function(req) {
   var token = null;
   if (req && req.cookies) {

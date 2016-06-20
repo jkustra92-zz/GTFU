@@ -123,7 +123,7 @@ var LoginForm = React.createClass({
 					<label htmlFor='password'>Password</label>
 					<input
 						className='password-login-form'
-						type='text'
+						type='password'
 						value={this.state.password}
 						onChange={this.handleLoginFormChange.bind(this, 'password')}
 					/>
@@ -188,13 +188,35 @@ var SignUpForm = React.createClass({
 		var password = this.state.password.trim();
 		this.signupAJAX(username, email, password);
 	},
-	signupAJAX: function(username, email, password) {
+	handleSignupAuthentication: function(username, password){
 		var self = this;
 		console.log(this.props.onChange);
 		var callback = function(userId) {
 			self.props.onChange(userId);
-		}
+		};
+			$.ajax({
+				url: '/auth',
+				method: 'POST',
+				data: {
+					username: username,
+					password: password
+				},
+				//if saved it console logs
+				success: function(data) {
+					console.log('Token acquired.');
+					console.log(data);
+					Cookies.set('jwt_token', data.token);
+					callback(data.id)
+				}.bind(this),
+				error: function(xhr, status, err) {
+					console.error(status, err.toString());
+				}.bind(this)
+			});
+		//Set username from signupAJAX and password from signupAJAX to new variables
+		//Use same ajax request from loginAJAX to authenticate user after succesfull signup.
 
+	},
+	signupAJAX: function(username, email, password) {
 		$.ajax({
 			url: '/users',
 			method: 'POST',
@@ -204,9 +226,9 @@ var SignUpForm = React.createClass({
 				password: password
 			},
 			success: function(data){
+				//Pass username and password into this.handSignupAuthentication(username, password)
 				console.log(data);
-				Cookies.set('temp', 'FAWRKS');
-				callback(data._id);
+				this.handleSignupAuthentication(username, password);
 			}.bind(this)
 		})
 	},
