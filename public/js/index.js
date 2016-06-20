@@ -254,8 +254,20 @@ var Page = React.createClass({
 		return (
 			<div>
 				<LogOut onChange={this.props.onChange} />
-				<News />
-				<Weather userId = {this.props.userId}/>
+				<Container userId = {this.props.userId}/>
+			</div>
+		);
+	}
+});
+
+var Container = React.createClass({
+	render: function() {
+		console.log(this.props.userId)
+		return (
+			// switched weather and news
+			<div id='master-container'>
+				<Weather userId = {this.props.userId} />
+{/*				<News />*/}
 			</div>
 		);
 	}
@@ -330,19 +342,26 @@ var Weather = React.createClass({
 	//weather ajax and renders it
 	render: function() {
 		return (
-			<div>
-				<ZipSearch weatherData = {this.weatherAJAX} />
+			<div
+				id="weather-container"
+				class="display"
+			>				
 				<WeatherSidebar 
 					weatherData = {this.weatherAJAX} 
 					zipCodes = {this.state.locations} 
 					userId = {this.props.userId}
 					render = {this.getUsersLocations}
-				/>
-				<WeatherDisplay 
-					currentWeather = {this.state.currentWeather} 
-					zipCode = {this.state.zip} 
-					userId = {this.props.userId}
-					render = {this.getUsersLocations}/>
+				 />
+				<div id='hack'>
+					<ZipSearch weatherData = {this.weatherAJAX} /> 
+					<WeatherDisplay
+						weatherData = {this.weatherAJAX} 
+						currentWeather = {this.state.currentWeather} 
+						zipCode = {this.state.zip} 
+						userId = {this.props.userId}
+						render = {this.getUsersLocations}
+					 />
+				</div>
 			</div>
 		);
 	}
@@ -378,15 +397,24 @@ var ZipSearch = React.createClass({
 	//rendering the zip 
 	render: function() {
 		return (
-			<form onSubmit={this.handleSearch}>
+			// adding id to form
+			<form
+				id='zip-search'
+				onSubmit={this.handleSearch}>
 				<input
 					type='text'
 					placeholder='Zip Code'
 					value={this.state.searchText}
 					onChange={this.handleLocationChange}
-					maxlength="5"
+					maxlength='5'
+					className='zip-input'
 				/>
-				<button type='submit'>Submit</button>
+				<button
+					type='submit'
+					className='zip-input'
+				>
+					Submit
+				</button>
 			</form>		
 		);
 	}
@@ -439,22 +467,26 @@ var WeatherSidebar = React.createClass({
 		} else {
 			var locations = zips.map(function(zipcode) {
 				return (
-					<div>
-						<p 
-							onClick = {callback}
-							value={zipcode.zipcode}>
-							{zipcode.zipcode}
-						</p>
+					<div 
+						className="zipcode"
+						onClick = {callback}
+						value={zipcode.zipcode}>
+						{zipcode.zipcode} 
 						<button 
 							onClick = {callback2}
 							value={zipcode._id}
-						>delete</button>
+						>
+							Delete
+						</button>
 					</div>
 				);
 			});
 		};
 		return (
-			<div> {locations} </div>
+			<div
+				id='zipcodes'
+				className='weather'
+			> {locations} </div>
 		);
 	}
 });
@@ -498,14 +530,25 @@ var WeatherDisplay = React.createClass({
 				null
 			)
 		} else {
-				return (
-					<div zip = {weather._id}>
-						<p>{weather.name}</p>
-						<p>{weather.main.temp}</p>
+			return (
+				<div>
+					<div
+						id='weather-display'
+						className='weather'
+						zip = {weather._id}
+					>
+						<p id='name'>{weather.name}</p>
+						<p id='temp'>{weather.main.temp}</p>
 						<p>{weather.weather[0].description}</p>
-						<p>{weather.main.temp_max}</p>
-						<p>{weather.main.temp_min}</p>
-						<button onClick = {this.handleClick}>add</button>
+						<p id='high'>hi: {weather.main.temp_max}</p>
+						<p id='low'>lo: {weather.main.temp_min}</p>
+					</div>
+					<button
+						id='add-button'
+						onClick = {this.handleClick}
+					>
+						add
+					</button>
 				</div>
 			);
 		}
@@ -551,7 +594,10 @@ var News = React.createClass({
 	render: function() {
 		return (
 			// added id
-			<div id="news-container">
+			<div
+				id="news-container"
+				class="display"
+			>
 				<NewsSidebar
 					topics={this.state.topics}
 					getArticles={this.getArticles}
