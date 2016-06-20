@@ -39,8 +39,8 @@ router.post('/', function(req, res) {
 
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule.hour = 7;
-rule.minute = 00;
+rule.hour = 15;
+rule.minute = 48;
  
 var j = schedule.scheduleJob(rule, function(){
   console.log('so hopefully this will work lol');
@@ -48,7 +48,8 @@ var j = schedule.scheduleJob(rule, function(){
     from: 'The Fork Masters <fork@growtheforkup.com>',
     to: 'jkustra92@gmail.com',
     subject: 'whaddup',
-    text: 'wow i sure hope this works'
+    body: 'start your forking day off right! fwarks',
+    html: "<h2><b>start your forking day off right<b></h2><br><a href ='blah'>fwarks</a>"
   };
    
   mailgun.messages().send(data, function (error, body) {
