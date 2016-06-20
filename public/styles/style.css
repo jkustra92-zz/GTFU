@@ -124,13 +124,11 @@ a{
 	color:#fff;
 	font-family: 'Sriracha', cursive;
 }
-/*a{
-	color:#fff;
-}*/
 
 #articles-container > div:first-of-type {
 	padding-top: 5px;
 }
+
 #button {
 	margin-left: 5px;
   padding: 5px 5px;
