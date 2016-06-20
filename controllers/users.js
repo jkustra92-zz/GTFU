@@ -8,12 +8,12 @@ var passport = require('../config/passport.js');
 var User = require('../models/users.js');
 var Zipcode = require('../models/zip.js');
 var request = require("request");
-var twilio = require('twilio');
-
+var schedule = require("node-schedule");
 var NYT_Key = process.env.NYT_KEY
-var TWILIO_ACCOUNT_SID = process.env.TWILIO_SID
-var TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH
-var client = new twilio.RestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
+var MAIL_Key = process.env.MAIL_KEY;
+var myDomain = 'sandbox3251a709176a4017a21f4a26a997845c.mailgun.org';
+var mailgun = require('mailgun-js')({apiKey: MAIL_Key, domain: myDomain});
+
 //==========================================
 // routes that don't require authentication
 //==========================================
@@ -31,6 +31,30 @@ router.post('/', function(req, res) {
 		console.log("Yippee kiyay motherfucker.");
 		res.send(true);
 	});
+});
+
+//=======================
+// some email cool stuff
+//=======================
+
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+rule.hour = 7;
+rule.minute = 00;
+ 
+var j = schedule.scheduleJob(rule, function(){
+  console.log('so hopefully this will work lol');
+  var data = {
+    from: 'The Fork Masters <fork@growtheforkup.com>',
+    to: 'jkustra92@gmail.com',
+    subject: 'whaddup',
+    text: 'wow i sure hope this works'
+  };
+   
+  mailgun.messages().send(data, function (error, body) {
+    console.log("yay it's working!")
+    console.log(body);
+  });
 });
 
 
@@ -141,21 +165,6 @@ router.get('/weather/:zip', function(req, res) {
       };
     });
 });
-
-//=======================
-// some texting bullshit
-//=======================
-router.post("/text", function(req, res){
- var client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN); 
- 
-  client.messages.create({ 
-  to: "+19175763631", 
-  from: "+15005550006", 
-  body: "hey, i'm trying to get this working!!",   
-}, function(err, message) { 
-  console.log(message.sid); 
-});
-})
 
 
 module.exports = router;
