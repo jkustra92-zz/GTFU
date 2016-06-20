@@ -15,7 +15,7 @@ header {
 }
 
 span {
-	font-size: 80px;
+	font-size: 86px;
 	font-family: 'header';
 }
 
@@ -70,8 +70,96 @@ h3{
 	margin:5px;
 }
 
+#master-container {
+}
+
+div div div div {
+	vertical-align: top;
+}
+
+.display {
+
+}
+
+#hack {
+	height: 474px;
+	left: 174px;
+	position: absolute;
+	width: 400px;
+	border: 1px solid;
+	text-align: center;
+}
+
+#zip-search {
+	margin: 25px;
+	margin-bottom: 0px;
+}
+
+#zip-search > input {
+	width: 150px;
+}
+
+#zip-search > button {
+	width: 100px;
+}
+
+.zip-input {
+	height: 50px;
+	font-size: 20px;
+}
+
+#zipcodes {
+	width: 125px;
+	margin: 0 auto;
+	text-align: center;
+	position: absolute;
+	left: 50px;
+}
+
+.zipcode {
+	border: 1px solid;
+}
+
+#weather-display {
+	top: 85px;
+	width: 300px;
+	height: 401px;
+	font-size: 30px;
+	text-align: center;
+}
+
+.weather {
+	display: inline-block;
+}
+
+#name {
+	font-size: 34px;
+	margin: 25px;
+}
+
+#temp {
+	font-size: 32px;
+	margin: 25px;
+}
+
+#high, #low {
+	font-size: 26px;
+	margin: 0;
+}
+
+#add-button {
+	height: 30px;
+	width: 65px;
+	margin: 5px;
+	font-size: 16px;
+	position: absolute;
+	bottom: 0;
+	left: 162px;
+}
+
 #news-container {	
 	position: relative;
+	float: right;
 }
 
 #topics-container {
@@ -79,6 +167,7 @@ h3{
 	width: 150px;
 	text-align: center;
 	border-right: none;
+	right: 601px;
 }
 
 .topics {
@@ -88,7 +177,7 @@ h3{
   background: linear-gradient(45deg, #414A50, #85A6B1, #8BD7D1, #CAEDDE);
   -webkit-background-clip: text;
 	border-radius: 10px 0 0 10px;
-	height: 89px;
+	height: 94px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -96,7 +185,8 @@ h3{
 	font-size: 32px;
 	color: #BBDEFB;
 }
-a{
+
+a {
 	color:#BBDEFB;	
 	font-weight: bold;
 	font-style: italic;
@@ -111,10 +201,17 @@ a{
 	margin-left: 150px;
 	position: absolute;
 	width: 550px;
-	height: 449px;
+	height: 474px;
 	border-radius: 0 15px 15px 0;
 	display: flex;
 	flex-direction: column;
+	right: 50px;
+	font-size: 38px;
+	border-left: none;
+}
+
+#topics-container div:not(:first-child) {
+	margin-top: -1px;
 }
 
 .article {
