@@ -8,8 +8,12 @@ var passport = require('../config/passport.js');
 var User = require('../models/users.js');
 var Zipcode = require('../models/zip.js');
 var request = require("request");
-var NYT_Key = process.env.NYT_KEY
+var twilio = require('twilio');
 
+var NYT_Key = process.env.NYT_KEY
+var TWILIO_ACCOUNT_SID = process.env.TWILIO_SID
+var TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH
+var client = new twilio.RestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN);
 //==========================================
 // routes that don't require authentication
 //==========================================
@@ -137,5 +141,21 @@ router.get('/weather/:zip', function(req, res) {
       };
     });
 });
+
+//=======================
+// some texting bullshit
+//=======================
+router.post("/text", function(req, res){
+ var client = require('twilio')(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN); 
+ 
+  client.messages.create({ 
+  to: "+19175763631", 
+  from: "+15005550006", 
+  body: "hey, i'm trying to get this working!!",   
+}, function(err, message) { 
+  console.log(message.sid); 
+});
+})
+
 
 module.exports = router;
