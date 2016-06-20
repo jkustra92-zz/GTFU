@@ -11,6 +11,7 @@ header {
 	font-family: 'Pacifico', cursive;
 	font-size: 64px;
 	text-align: center;
+	color:#fff;
 }
 
 span {
@@ -20,6 +21,51 @@ span {
 
 body {
 	font-size: 15px;
+	background-color: #000000;
+  padding: 0px;
+  margin: 0px;
+}
+h3{
+	font-family: 'Sriracha', cursive;
+	color:#fff;
+	display: inline-block;
+}
+
+#gradient{
+  width: 100%;
+  height: 800px;
+  padding: 0px;
+  margin: 0px;
+}
+
+#about{
+	padding-right: 10rem;
+	color: #fff;
+	font-family: 'Sriracha', cursive;
+	float:right;
+}
+
+.login-form{
+	padding-left: 2rem;
+}
+.signup-form{
+	padding-left: 2rem;
+}
+.username-login-form{
+	margin: 5px;
+}
+.password-login-form{
+	margin: 5px;
+}
+
+.username-signup-form{
+	margin:5px;
+}
+.email-signup-form{
+	margin:5px;
+}
+.password-signup-form{
+	margin:5px;
 }
 
 #news-container {	
@@ -34,7 +80,11 @@ body {
 }
 
 .topics {
-	border: 1px solid black;
+	border: 2px solid transparent;
+	border-image: linear-gradient(45deg, #414A50, #85A6B1, #8BD7D1, #CAEDDE);
+  border-image-slice: 1;
+  background: linear-gradient(45deg, #414A50, #85A6B1, #8BD7D1, #CAEDDE);
+  -webkit-background-clip: text;
 	border-radius: 10px 0 0 10px;
 	height: 89px;
 	display: flex;
@@ -42,10 +92,20 @@ body {
 	justify-content: center;
 	font-family: 'Pacifico', cursive;
 	font-size: 32px;
+	color: #BBDEFB;
+}
+a{
+	color:#BBDEFB;	
+	font-weight: bold;
+	font-style: italic;
 }
 
 #articles-container {
-	border: 1px solid black;
+	border: 3px solid transparent;
+	border-image: linear-gradient(45deg, #414A50, #85A6B1, #8BD7D1, #CAEDDE);
+  border-image-slice: 1;
+  background: linear-gradient(45deg, #414A50, #85A6B1, #8BD7D1, #CAEDDE);
+  -webkit-background-clip: text;
 	margin-left: 150px;
 	position: absolute;
 	width: 550px;
@@ -59,8 +119,24 @@ body {
 	padding: 0px 7px 2px 7px;
 	text-align: justify;
 	flex: 1;
+	color:#fff;
+	font-family: 'Sriracha', cursive;
 }
+/*a{
+	color:#fff;
+}*/
 
 #articles-container > div:first-of-type {
 	padding-top: 5px;
+}
+#button {
+	margin-left: 5px;
+  padding: 5px 5px;
+  letter-spacing: 1px;
+  color: #fff;
+  border: solid 3px transparent;
+  border-image: linear-gradient(45deg, pink, skyblue);
+  border-image-slice: 1;
+  background: linear-gradient(45deg, pink, skyblue);
+  -webkit-background-clip: text;
 }
