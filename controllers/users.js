@@ -8,7 +8,11 @@ var passport = require('../config/passport.js');
 var User = require('../models/users.js');
 var Zipcode = require('../models/zip.js');
 var request = require("request");
+var schedule = require("node-schedule");
 var NYT_Key = process.env.NYT_KEY
+var MAIL_Key = process.env.MAIL_KEY;
+var myDomain = 'sandbox3251a709176a4017a21f4a26a997845c.mailgun.org';
+var mailgun = require('mailgun-js')({apiKey: MAIL_Key, domain: myDomain});
 
 //==========================================
 // routes that don't require authentication
@@ -27,6 +31,31 @@ router.post('/', function(req, res) {
 		console.log("Yippee kiyay motherfucker.");
 		res.send(true);
 	});
+});
+
+//=======================
+// some email cool stuff
+//=======================
+
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [0, new schedule.Range(0, 6)];
+rule.hour = 15;
+rule.minute = 48;
+ 
+var j = schedule.scheduleJob(rule, function(){
+  console.log('so hopefully this will work lol');
+  var data = {
+    from: 'The Fork Masters <fork@growtheforkup.com>',
+    to: 'jkustra92@gmail.com',
+    subject: 'whaddup',
+    body: 'start your forking day off right! fwarks',
+    html: "<h2><b>start your forking day off right<b></h2><br><a href ='blah'>fwarks</a>"
+  };
+   
+  mailgun.messages().send(data, function (error, body) {
+    console.log("yay it's working!")
+    console.log(body);
+  });
 });
 
 
@@ -137,5 +166,6 @@ router.get('/weather/:zip', function(req, res) {
       };
     });
 });
+
 
 module.exports = router;
