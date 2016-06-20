@@ -110,25 +110,25 @@ var LoginForm = React.createClass({
 	render: function() {
 		return (
 			<div className='login-form'>
-				<h3>Please Login</h3>
+				<h3>Forking Login</h3>
 				<form onSubmit={this.handleSubmit}>
-					<label htmlFor='username'>Username</label>
 					<input
 						className='username-login-form'
 						type='text' 
+						placeholder='username'
 						value={this.state.username}
 						onChange={this.handleLoginFormChange.bind(this, 'username')}
 					/>
 					<br/>
-					<label htmlFor='password'>Password</label>
 					<input
 						className='password-login-form'
 						type='password'
+						placeholder='password'
 						value={this.state.password}
 						onChange={this.handleLoginFormChange.bind(this, 'password')}
 					/>
 					<br/>
-					<input type='submit' />
+					<input type='submit' id='button' />
 				</form>
 			</div>
 		)
@@ -236,30 +236,33 @@ var SignUpForm = React.createClass({
 	render: function() {
 		return(
 			<div className='signup-form'>
-				<h3>Sign Up</h3>
+				<h3>Sign The Fork Up</h3>
 				<form onSubmit={this.handleSubmit}>
-					<label htmlFor='username'>Username</label>
 					<input
 						className='username-signup-form'
 						type='text'
+						placeholder='username'
 						value={this.state.username}
 						onChange={this.handleSignupFormChange.bind(this, 'username')}
 					/>
-					<label htmlFor='email'>E-Mail</label>
+					<br/>
 					<input
 						className='email-signup-form'
 						type='text'
+						placeholder='email'
 						value={this.state.email}
 						onChange={this.handleSignupFormChange.bind(this, 'email')}
 					/>
-					<label htmlFor='password'>Password</label>
+					<br/>
 					<input
 						className='password-signup-form'
 						type='password'
+						placeholder='password'
 						value={this.state.password}
 						onChange={this.handleSignupFormChange.bind(this, 'password')}
 					/>
-					<input type='submit' />
+					<br/>
+					<input type='submit' id='button' />
 				</form>
 			</div>
 		);
