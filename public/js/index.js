@@ -47,6 +47,17 @@ var App = React.createClass({
 		}else{
 			return (
 				<div id = 'homepage'>
+					<div id="about">Grow The Fork Up is designed to help you become a better 
+						<br/> adult by  rendering the upcoming weather and the latest 
+						<br/>news from one of the world's top acceredited news sites. 
+    			</div>
+    			<div className="icon-sun-shower">
+      		<div className="cloud"></div>
+      		<div className="sun">
+      		<div className="rays"></div>
+    		</div>
+      <div className="rain"></div>
+    </div>
 					<LoginForm
 						initialLoginCheck={this.state.authenticatedUser}
 						onChange={this.changeLogin}
