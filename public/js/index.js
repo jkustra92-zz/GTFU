@@ -503,7 +503,7 @@ var WeatherSidebar = React.createClass({
 							onClick = {callback2}
 							value={zipcode._id}
 						>
-							Delete
+							x
 						</button>
 					</div>
 				);
