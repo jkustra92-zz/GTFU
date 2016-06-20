@@ -255,7 +255,7 @@ var SignUpForm = React.createClass({
 					<label htmlFor='password'>Password</label>
 					<input
 						className='password-signup-form'
-						type='text'
+						type='password'
 						value={this.state.password}
 						onChange={this.handleSignupFormChange.bind(this, 'password')}
 					/>
