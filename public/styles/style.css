@@ -43,7 +43,8 @@ h3{
 	color: #fff;
 	font-family: 'Sriracha', cursive;
 	float:right;
-	margin-right: 18.5rem;
+	/*margin-right: 18.5rem;*/
+	margin-right: 23%;
 }
 
 .login-form{
