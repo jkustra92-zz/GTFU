@@ -210,6 +210,20 @@ div div div div {
 	padding-top: 5px;
 }
 
+button{
+	margin-left: 5px;
+  padding: 5px 5px;
+  letter-spacing: 1px;
+  color: #fff;
+  border: solid 3px transparent;
+  border-image: linear-gradient(45deg, pink, skyblue);
+  border-image-slice: 1;
+  background: linear-gradient(45deg, pink, skyblue);
+  -webkit-background-clip: text;
+  margin-left: 2.3rem;
+  margin-top: 1rem;
+}
+
 #button {
 	margin-left: 5px;
   padding: 5px 5px;
