@@ -51,7 +51,7 @@ var App = React.createClass({
 						initialLoginCheck={this.state.authenticatedUser}
 						onChange={this.changeLogin}
 					/>
-					<SignUpForm onChange={this.changeLogin}/>
+					<SignUpButton onChange={this.changeLogin}/>
 				</div>
 			);
 		}
@@ -154,7 +154,7 @@ var SignUpButton = React.createClass({
 			return(<button onClick = {this.handleClick}>sign up!</button>)
 		}else{
 			return(
-				<SignUpButton onChange={this.props.changeLogin}/>)
+				<SignUpForm onChange={this.props.changeLogin}/>)
 		}
 	}
 });
