@@ -294,7 +294,7 @@ var Container = React.createClass({
 			// switched weather and news
 			<div id='master-container'>
 				<Weather userId = {this.props.userId} />
-{/*				<News />*/}
+				<News />
 			</div>
 		);
 	}
