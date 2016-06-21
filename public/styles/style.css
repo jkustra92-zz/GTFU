@@ -9,22 +9,24 @@
 
 header {
 	font-family: 'Pacifico', cursive;
-	font-size: 64px;
+	font-size: 4em;
 	text-align: center;
 	color:#fff;
 }
 
 span {
-	font-size: 86px;
+	font-size: 5.375px;
 	font-family: 'header';
 }
 
 body {
 	font-size: 15px;
-	background-color: #000000;
+	/*background-color: #000000;*/
+	background-color: papayawhip;
   padding: 0px;
   margin: 0px;
 }
+
 h3{
 	font-family: 'Sriracha', cursive;
 	color:#fff;
@@ -70,6 +72,32 @@ h3{
 	margin:5px;
 }
 
+button {
+	margin-left: 5px;
+  padding: 5px 5px;
+  letter-spacing: 1px;
+  color: #fff;
+  border: solid 3px transparent;
+  border-image: linear-gradient(45deg, pink, skyblue);
+  border-image-slice: 1;
+  background: linear-gradient(45deg, pink, skyblue);
+  -webkit-background-clip: text;
+  margin-left: 2.3rem;
+  margin-top: 1rem;
+}
+
+#button {
+	margin-left: 5px;
+  padding: 5px 5px;
+  letter-spacing: 1px;
+  color: #fff;
+  border: solid 3px transparent;
+  border-image: linear-gradient(45deg, pink, skyblue);
+  border-image-slice: 1;
+  background: linear-gradient(45deg, pink, skyblue);
+  -webkit-background-clip: text;
+}
+
 #master-container {
 }
 
@@ -81,57 +109,63 @@ div div div div {
 
 }
 
-#hack {
-	height: 474px;
-	left: 174px;
-	position: absolute;
-	width: 400px;
+#weather-container {
+	display: inline-block;
+	width: 25%;
+	margin: 0 auto;
+	margin-left: 5%;
 	border: 3px solid;
-	text-align: center;
-	border-radius: 0 15px 15px 15px;
+	border-radius: 15px 15px 15px 15px;
+	height: 472px;
+
 }
 
 #zip-search {
-	margin: 25px;
-	margin-bottom: 0px;
-}
-
-#zip-search > input {
-	width: 150px;
-}
-
-#zip-search > button {
-	width: 100px;
+	margin: 0;
+	display: inline-block;
+	text-align: center;
 }
 
 .zip-input {
-	height: 50px;
-	font-size: 20px;
+	height: 40px;
+	font-size: 0.75em;
+}
+
+#zip-search > input {
+	width: 40%;
+}
+
+#zip-search > button {
+	width: 35%;
+	margin-left: 0;
+	height: 46px;
 }
 
 #zipcodes {
-	width: 125px;
-	margin: 0 auto;
 	text-align: center;
-	position: absolute;
-	left: 50px;
-
+	display: inline-block;
+	overflow: auto;
+	overflow-x: scroll; 
+	overflow-y: hidden;
+	white-space: nowrap;
+	height: 30px;
+	width: 95%;
+	margin-left: 2.5%;
 }
 
 .zipcode {
-	border: 3px solid;
-	height: 35px;
-	display: flex;
-	flex-direction: column;
+	margin: 5px;
+	display: inline-block;
 }
 
-.zipcode div:not(:first-child) {
-	margin-top: -3px;
+.zip-button {
+	height: 0.5em;
+	width:  0.5em;
+	margin: 0;
 }
 
 #weather-display {
 	top: 85px;
-	width: 300px;
 	height: 401px;
 	font-size: 30px;
 	text-align: center;
@@ -161,19 +195,22 @@ div div div div {
 	width: 65px;
 	margin: 5px;
 	font-size: 16px;
-	position: absolute;
 	bottom: 0;
 	left: 162px;
 }
 
-#news-container {	
+#news-container {
+	display: inline-block;	
 	position: relative;
+	width: 60%;
+	margin-right: 5%;
 	float: right;
 }
 
 #topics-container {
-	position: absolute;
-	width: 150px;
+	/*position: absolute;*/
+	width: 25%;
+	display: inline-block;
 	text-align: center;
 	border-right: none;
 	right: 601px;
@@ -189,6 +226,8 @@ div div div div {
 	font-family: 'Pacifico', cursive;
 	font-size: 38px;
 	color: #fff;
+	cursor: pointer;
+	cursor: hand;
 }
 
 #topics-container div:not(:first-child) {
@@ -198,19 +237,22 @@ div div div div {
 #articles-container {
 	border: 3px solid black;
 	border-left: none;
-	margin-left: 150px;
-	position: absolute;
-	width: 550px;
-	height: 472px;
+	/*margin-left: 150px;*/
+	/*position: absolute;*/
+	display: inline-block;
+	/*width: 550px;*/
+	height: 478px;
 	border-radius: 0 15px 15px 0;
-	display: flex;
 	flex-direction: column;
 	right: 50px;
 	color:white;
+	box-sizing: border-box;
+	width: calc(100% - 25%);
 }
 
 .article {
 	padding: 0px 7px 2px 7px;
+	height: 95px;
 	text-align: justify;
 	flex: 1;
 }
@@ -219,28 +261,3 @@ div div div div {
 	padding-top: 5px;
 }
 
-button{
-	margin-left: 5px;
-  padding: 5px 5px;
-  letter-spacing: 1px;
-  color: #fff;
-  border: solid 3px transparent;
-  border-image: linear-gradient(45deg, pink, skyblue);
-  border-image-slice: 1;
-  background: linear-gradient(45deg, pink, skyblue);
-  -webkit-background-clip: text;
-  margin-left: 2.3rem;
-  margin-top: 1rem;
-}
-
-#button {
-	margin-left: 5px;
-  padding: 5px 5px;
-  letter-spacing: 1px;
-  color: #fff;
-  border: solid 3px transparent;
-  border-image: linear-gradient(45deg, pink, skyblue);
-  border-image-slice: 1;
-  background: linear-gradient(45deg, pink, skyblue);
-  -webkit-background-clip: text;
-}

@@ -290,20 +290,8 @@ var Page = React.createClass({
 	render: function() {
 		console.log(this.props.userId)
 		return (
-			<div>
+			<div main-container>
 				<LogOut onChange={this.props.onChange} />
-				<Container userId = {this.props.userId}/>
-			</div>
-		);
-	}
-});
-
-var Container = React.createClass({
-	render: function() {
-		console.log(this.props.userId)
-		return (
-			// switched weather and news
-			<div id='master-container'>
 				<Weather userId = {this.props.userId} />
 				<News />
 			</div>
@@ -390,7 +378,6 @@ var Weather = React.createClass({
 					userId = {this.props.userId}
 					render = {this.getUsersLocations}
 				 />
-				<div id='hack'>
 					<ZipSearch weatherData = {this.weatherAJAX} /> 
 					<WeatherDisplay
 						weatherData = {this.weatherAJAX} 
@@ -399,7 +386,6 @@ var Weather = React.createClass({
 						userId = {this.props.userId}
 						render = {this.getUsersLocations}
 					 />
-				</div>
 			</div>
 		);
 	}
@@ -513,8 +499,8 @@ var WeatherSidebar = React.createClass({
 						<button 
 							onClick = {callback2}
 							value={zipcode._id}
+							className='zip-button'
 						>
-							x
 						</button>
 					</div>
 				);
@@ -569,18 +555,16 @@ var WeatherDisplay = React.createClass({
 			)
 		} else {
 			return (
-				<div>
-					<div
-						id='weather-display'
-						className='weather'
-						zip = {weather._id}
-					>
-						<p id='name'>{weather.name}</p>
-						<p id='temp'>{weather.main.temp}</p>
-						<p>{weather.weather[0].description}</p>
-						<p id='high'>hi: {weather.main.temp_max}</p>
-						<p id='low'>lo: {weather.main.temp_min}</p>
-					</div>
+				<div
+					id='weather-display'
+					className='weather'
+					zip = {weather._id}
+				>
+					<p id='name'>{weather.name}</p>
+					<p id='temp'>{weather.main.temp}</p>
+					<p>{weather.weather[0].description}</p>
+					<p id='high'>hi: {weather.main.temp_max}</p>
+					<p id='low'>lo: {weather.main.temp_min}</p>
 					<button
 						id='add-button'
 						onClick = {this.handleClick}
