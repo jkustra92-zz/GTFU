@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
 			res.status(500).end();
 		}
 		console.log("Yippee kiyay motherfucker.");
-		res.send(true);
+		res.send(user);
 	});
 });
 
@@ -39,17 +39,17 @@ router.post('/', function(req, res) {
 
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule.hour = 15;
-rule.minute = 48;
+rule.hour = 7;
+rule.minute = 30;
  
 var j = schedule.scheduleJob(rule, function(){
   console.log('so hopefully this will work lol');
   var data = {
     from: 'The Fork Masters <fork@growtheforkup.com>',
-    to: 'jkustra92@gmail.com',
-    subject: 'whaddup',
+    to: 'forksperson@gmail.com',
+    subject: 'good forking morning!',
     body: 'start your forking day off right! fwarks',
-    html: "<h2><b>start your forking day off right<b></h2><br><a href ='blah'>fwarks</a>"
+    html: "<h2><b>start your forking day off right<b></h2><br><img src = 'http://i.imgur.com/P0X2Emk.gif' /><br/><img src = 'http://67.media.tumblr.com/6b5fbeff75d59966356539355b3ceea6/tumblr_mr6se8xqEI1qbvaudo1_250.gif' /><br/><a href ='still-waters-28982.herokuapp.com'>fwarks</a>"
   };
    
   mailgun.messages().send(data, function (error, body) {
