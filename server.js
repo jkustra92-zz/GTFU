@@ -9,6 +9,7 @@ var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var cookieParser = require("cookie-parser");
+var ngrok = require('ngrok');
 var port = process.env.PORT || 3000;
 
 
@@ -60,3 +61,12 @@ app.use("/seed", seedController);
 //==================
 app.listen(port);
 console.log("(ﾉಥ益ಥ）ﾉ﻿ ┻━┻");
+
+ngrok.connect({
+	proto: 'http', 
+	addr: port,  
+	auth: 'user:pwd', 
+	region: 'us'
+}, function (err, url) {
+});
+

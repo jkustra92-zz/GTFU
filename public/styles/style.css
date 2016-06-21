@@ -21,8 +21,8 @@ span {
 
 body {
 	font-size: 15px;
-	/*background-color: #000000;*/
-	background-color: papayawhip;
+	background-color: #000000;
+	/*background-color: papayawhip;*/
   padding: 0px;
   margin: 0px;
 }
@@ -242,13 +242,13 @@ div div div div {
 	/*position: absolute;*/
 	display: inline-block;
 	/*width: 550px;*/
-	height: 478px;
+	max-height: 478px;
 	border-radius: 0 15px 15px 0;
-	flex-direction: column;
 	right: 50px;
-	color:white;
+	color: white;
 	box-sizing: border-box;
 	width: calc(100% - 25%);
+	flex-direction: column;
 }
 
 .article {
@@ -256,6 +256,10 @@ div div div div {
 	height: 95px;
 	text-align: justify;
 	flex: 1;
+}
+
+p {
+	margin: 0;
 }
 
 #articles-container > div:first-of-type {

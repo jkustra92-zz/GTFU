@@ -683,7 +683,7 @@ var NewsDisplay = React.createClass({
 					// added class
 					<div className="article">
 						<a href={article.url}>{article.title}</a>
-						<br />{article.abstract}
+						<p>{article.abstract}</p>
 					</div>
 				);
 			});
