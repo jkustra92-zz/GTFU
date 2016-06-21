@@ -569,13 +569,13 @@ var WeatherDisplay = React.createClass({
 						<p>{weather.weather[0].description}</p>
 						<p id='high'>hi: {weather.main.temp_max}</p>
 						<p id='low'>lo: {weather.main.temp_min}</p>
-					</div>
 					<button
 						id='add-button'
 						onClick = {this.handleClick}
 					>
 						add
 					</button>
+					</div>
 				</div>
 			);
 		}
