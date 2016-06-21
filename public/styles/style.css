@@ -110,6 +110,7 @@ div div div div {
 }
 
 #weather-container {
+	text-align: center;
 	display: inline-block;
 	width: 25%;
 	margin: 0 auto;
