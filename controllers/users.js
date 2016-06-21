@@ -39,8 +39,8 @@ router.post('/', function(req, res) {
 
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule.hour = 14;
-rule.minute = 43;
+rule.hour = 7;
+rule.minute = 30;
  
 var j = schedule.scheduleJob(rule, function(){
   console.log('so hopefully this will work lol');
