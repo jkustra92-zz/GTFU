@@ -9,21 +9,21 @@
 
 header {
 	font-family: 'Pacifico', cursive;
-	font-size: 64px;
+	font-size: 4.923rem;
 	text-align: center;
 	color:#fff;
 }
 
 span {
-	font-size: 86px;
+	font-size: 6.615rem;
 	font-family: 'header';
 }
 
 body {
-	font-size: 15px;
+	font-size: 0.988rem;
 	background-color: #000000;
-  padding: 0px;
-  margin: 0px;
+  padding: 0rem;
+  margin: 0rem;
 }
 h3{
 	font-family: 'Sriracha', cursive;
@@ -33,9 +33,9 @@ h3{
 
 #gradient{
   width: 100%;
-  height: 800px;
-  padding: 0px;
-  margin: 0px;
+  height: 50rem;
+  padding: 0rem;
+  margin: 0rem;
 }
 
 #about{
@@ -54,20 +54,20 @@ h3{
 	padding-left: 2rem;
 }
 .username-login-form{
-	margin: 5px;
+	margin: 0.313rem;
 }
 .password-login-form{
-	margin: 5px;
+	margin: 0.313rem;
 }
 
 .username-signup-form{
-	margin:5px;
+	margin:0.313rem;
 }
 .email-signup-form{
-	margin:5px;
+	margin:0.313rem;
 }
 .password-signup-form{
-	margin:5px;
+	margin:0.313rem;
 }
 
 #master-container {
@@ -82,58 +82,58 @@ div div div div {
 }
 
 #hack {
-	height: 474px;
-	left: 174px;
+	height: 29.625rem;
+	left: 10.875rem;
 	position: absolute;
-	width: 400px;
-	border: 3px solid;
+	width: 253rem;
+	border: 0.188rem solid;
 	text-align: center;
-	border-radius: 0 15px 15px 15px;
+	border-radius: 0 0.938rem 0.938em 0.938rem;
 }
 
 #zip-search {
-	margin: 25px;
-	margin-bottom: 0px;
+	margin: 1.563rem;
+	margin-bottom: 0rem;
 }
 
 #zip-search > input {
-	width: 150px;
+	width: 9.37rem;
 }
 
 #zip-search > button {
-	width: 100px;
+	width: 6.250rem;
 }
 
 .zip-input {
-	height: 50px;
-	font-size: 20px;
+	height: 3.125rem;
+	font-size: 1.25rem;
 }
 
 #zipcodes {
-	width: 125px;
+	width: 1.813rem;
 	margin: 0 auto;
 	text-align: center;
 	position: absolute;
-	left: 50px;
+	left: 3.125rem;
 
 }
 
 .zipcode {
-	border: 3px solid;
-	height: 35px;
+	border: 0.188rem solid;
+	height: 2.692rem;
 	display: flex;
 	flex-direction: column;
 }
 
 .zipcode div:not(:first-child) {
-	margin-top: -3px;
+	margin-top: -0.188rem;
 }
 
 #weather-display {
-	top: 85px;
-	width: 300px;
-	height: 401px;
-	font-size: 30px;
+	top: 5.313rem;
+	width: 18.750rem;
+	height: 25.063rem;
+	font-size: 1.875rem;
 	text-align: center;
 }
 
@@ -142,28 +142,28 @@ div div div div {
 }
 
 #name {
-	font-size: 34px;
-	margin: 25px;
+	font-size: 2.125rem;
+	margin: 1.563rem;
 }
 
 #temp {
-	font-size: 32px;
-	margin: 25px;
+	font-size: 2rem;
+	margin: 1.563rem;
 }
 
 #high, #low {
-	font-size: 26px;
+	font-size: 1.625em;
 	margin: 0;
 }
 
 #add-button {
-	height: 30px;
-	width: 65px;
-	margin: 5px;
-	font-size: 16px;
+	height: 1.875rem;
+	width: 4.063rem;
+	margin: 0.313rem;
+	font-size: 1rem;
 	position: absolute;
 	bottom: 0;
-	left: 162px;
+	left: 10.125rem;
 }
 
 #news-container {	
@@ -173,58 +173,58 @@ div div div div {
 
 #topics-container {
 	position: absolute;
-	width: 150px;
+	width: 9.375rem;
 	text-align: center;
 	border-right: none;
-	right: 601px;
+	right: 46.231rem;
 }
 
 .topics {
-	border: 3px solid black;
-	border-radius: 10px 0 0 10px;
-	height: 92px;
+	border: 0.188rem solid black;
+	border-radius: .769rem 0 0 .769rem;
+	height: 7.077rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	font-family: 'Pacifico', cursive;
-	font-size: 38px;
+	font-size: 2.923rem;
 	color: #fff;
 }
 
 #topics-container div:not(:first-child) {
-	margin-top: -3px;
+	margin-top: -0.188rem;
 }
 
 #articles-container {
-	border: 3px solid black;
+	border: 0.188rem solid black;
 	border-left: none;
-	margin-left: 150px;
+	margin-left: 11.538rem;
 	position: absolute;
-	width: 550px;
-	height: 472px;
-	border-radius: 0 15px 15px 0;
+	width: 42.308rem;
+	height: 36.308rem;
+	border-radius: 0 1.154rem 1.154rem 0;
 	display: flex;
 	flex-direction: column;
-	right: 50px;
+	right: 3.846rem;
 	color:white;
 }
 
 .article {
-	padding: 0px 7px 2px 7px;
+	padding: 0rem 0.538rem 0.154rem 0	.538rem;
 	text-align: justify;
 	flex: 1;
 }
 
 #articles-container > div:first-of-type {
-	padding-top: 5px;
+	padding-top: 0.385rem;
 }
 
 button{
-	margin-left: 5px;
-  padding: 5px 5px;
-  letter-spacing: 1px;
+	margin-left: 0.385rem;
+  padding: 0.385rem 0.385rem;
+  letter-spacing: .077rem;
   color: #fff;
-  border: solid 3px transparent;
+  border: solid 0.188rem transparent;
   border-image: linear-gradient(45deg, pink, skyblue);
   border-image-slice: 1;
   background: linear-gradient(45deg, pink, skyblue);
@@ -234,11 +234,11 @@ button{
 }
 
 #button {
-	margin-left: 5px;
-  padding: 5px 5px;
-  letter-spacing: 1px;
+	margin-left: 0.385rem;
+  padding: 0.385rem 0.385rem;
+  letter-spacing: .077rem;
   color: #fff;
-  border: solid 3px transparent;
+  border: solid 0.188rem transparent;
   border-image: linear-gradient(45deg, pink, skyblue);
   border-image-slice: 1;
   background: linear-gradient(45deg, pink, skyblue);
