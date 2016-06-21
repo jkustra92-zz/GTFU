@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
 			res.status(500).end();
 		}
 		console.log("Yippee kiyay motherfucker.");
-		res.send(true);
+		res.send(user);
 	});
 });
 

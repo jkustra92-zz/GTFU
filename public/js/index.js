@@ -165,7 +165,7 @@ var SignUpButton = React.createClass({
 			return(<button onClick = {this.handleClick}>Sign Up</button>)
 		}else{
 			return(
-				<SignUpForm onChange={this.props.changeLogin}/>)
+				<SignUpForm onChange={this.props.onChange}/>)
 		}
 	}
 });
