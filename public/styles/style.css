@@ -292,12 +292,13 @@ p {
 		color: #fff;
 		font-family: 'Sriracha', cursive;
 		float: none;
+		padding: 0;
 		/*margin-right: 18.5rem;*/
 		margin-right: 0;
 	}
 
 	.icon-sun-shower > div{
-		top: 45%;
+		top: 55%;
 	}
 
 	h3 {
