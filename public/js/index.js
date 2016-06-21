@@ -688,7 +688,7 @@ var NewsDisplay = React.createClass({
 					// removed <img>
 					// added class
 					<div className="article">
-						<a href={article.url}>{article.title}</a>
+						<a href={article.url} target="_blank" >{article.title}</a>
 						<br />{article.abstract}
 					</div>
 				);
