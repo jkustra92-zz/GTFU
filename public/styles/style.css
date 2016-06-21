@@ -296,10 +296,18 @@ p {
 		margin-right: 0;
 	}
 
+	.icon-sun-shower > div{
+		top: 45%;
+	}
+
+	h3 {
+		margin: 7px;
+	}
+
 	.login-form {
 		padding: 0;
 		text-align: center;
-		margin-top: 9em;
+		margin-top: 7em;
 	}
 
 	#button {
