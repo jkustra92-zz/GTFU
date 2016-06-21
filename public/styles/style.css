@@ -189,6 +189,8 @@ div div div div {
 	font-family: 'Pacifico', cursive;
 	font-size: 2.923rem;
 	color: #fff;
+	cursor: pointer;
+	cursor: hand;
 }
 
 #topics-container div:not(:first-child) {
@@ -243,4 +245,7 @@ button{
   border-image-slice: 1;
   background: linear-gradient(45deg, pink, skyblue);
   -webkit-background-clip: text;
+}
+#weather-display{
+	color: white;
 }

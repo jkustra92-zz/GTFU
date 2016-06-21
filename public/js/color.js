@@ -1,4 +1,5 @@
 
+//rgb colors that are in an array
 var colors = new Array(
   [62,35,255],
   [60,255,60],
@@ -22,12 +23,14 @@ function updateGradient()
 {
   
   if ( $===undefined ) return;
-  
+
+//array rows are given a variable
 var c0_0 = colors[colorIndices[0]];
 var c0_1 = colors[colorIndices[1]];
 var c1_0 = colors[colorIndices[2]];
 var c1_1 = colors[colorIndices[3]];
 
+//are then added and multipled to give that affect
 var istep = 1 - step;
 var r1 = Math.round(istep * c0_0[0] + step * c0_1[0]);
 var g1 = Math.round(istep * c0_0[1] + step * c0_1[1]);
@@ -39,10 +42,12 @@ var g2 = Math.round(istep * c1_0[1] + step * c1_1[1]);
 var b2 = Math.round(istep * c1_0[2] + step * c1_1[2]);
 var color2 = "rgb("+r2+","+g2+","+b2+")";
 
+//the gradient part
  $('#gradient').css({
    background: "-webkit-gradient(linear, left top, right top, from("+color1+"), to("+color2+"))"}).css({
     background: "-moz-linear-gradient(left, "+color1+" 0%, "+color2+" 100%)"});
-  
+   
+  //speed
   step += gradientSpeed;
   if ( step >= 1 )
   {
