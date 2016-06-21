@@ -47,9 +47,8 @@ var App = React.createClass({
 		}else{
 			return (
 				<div id = 'homepage'>
-					<div id="about">Grow The Fork Up is designed to help you become a better 
-						<br/> adult by  rendering the upcoming weather and the latest 
-						<br/>news from one of the world's top acceredited news sites. 
+					<div id="about">
+						Grow The Fork Up is designed to help you become a better adult by  rendering the upcoming weather and the latest news from one of the world's top acceredited news sites. 
     			</div>
     			<div className="icon-sun-shower">
       		<div className="cloud"></div>
@@ -162,7 +161,14 @@ var SignUpButton = React.createClass({
 	},
 	render: function() {
 		if (this.state.clicked == false){
-			return(<button onClick = {this.handleClick}>Sign Up</button>)
+			return(
+				<button
+					id="sign-up-button"
+					onClick = {this.handleClick}
+				>
+					Sign Up
+				</button>
+			)
 		}else{
 			return(
 				<SignUpForm onChange={this.props.onChange}/>)
@@ -683,7 +689,7 @@ var NewsDisplay = React.createClass({
 					// added class
 					<div className="article">
 						<a href={article.url}>{article.title}</a>
-						<p>{article.abstract}</p>
+						<br />{article.abstract}
 					</div>
 				);
 			});

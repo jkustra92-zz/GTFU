@@ -58,7 +58,9 @@ p{
 	font-family: 'Sriracha', cursive;
 	float:right;
 	/*margin-right: 18.5rem;*/
-	margin-right: 23%;
+	margin-right: 25%;
+	width: 30%;
+	text-align: justify;
 }
 
 .login-form{
@@ -278,3 +280,41 @@ p {
 	padding-top: 5px;
 }
 
+@media (max-width: 375px) {
+	header {
+		margin-top: 0.25em;
+		font-size: 2.5em;
+	}
+
+	#about {
+		width: 80%;
+		margin: 10%;
+		color: #fff;
+		font-family: 'Sriracha', cursive;
+		float: none;
+		/*margin-right: 18.5rem;*/
+		margin-right: 0;
+	}
+
+	.login-form {
+		padding: 0;
+		text-align: center;
+		margin-top: 9em;
+	}
+
+	#button {
+		margin: 0;
+	}
+
+	#sign-up-button {
+		text-align: center;
+		display: block;
+		margin: 0 auto;
+		margin-top: 2em;
+	}
+
+	.signup-form {
+		text-align: center;
+		padding: 0;
+	}
+}
