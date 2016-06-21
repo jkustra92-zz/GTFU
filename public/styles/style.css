@@ -53,12 +53,14 @@ p{
 }
 
 #about{
-	padding-right: 10rem;
+	display: block;
+	margin-top: 3em;
+	/*padding-right: 10rem;*/
 	color: #fff;
 	font-family: 'Sriracha', cursive;
 	float:right;
 	/*margin-right: 18.5rem;*/
-	margin-right: 25%;
+	margin-right: 35%;
 	width: 30%;
 	text-align: justify;
 }
