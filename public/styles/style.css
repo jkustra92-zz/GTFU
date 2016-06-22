@@ -186,6 +186,9 @@ div div div div {
 	width:  0.5em;
 	margin: 0;
 }
+.zip-button:hover{
+	cursor:  url(trashcan.png), url(http://www.apptivo.com/wp-content/uploads/2013/09/Delete-icon1.png), auto;
+}
 
 #weather-display {
 	top: 85px;
