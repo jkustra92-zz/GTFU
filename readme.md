@@ -27,7 +27,7 @@ This app helps you adult by providing the weather and top news stories of the da
 * Daily morning email to users with a link to the site.
 * Persistent data -- users can store multiple zipcodes.
 
-# Future Implementations
+## Future Implementations
 
 * Add additional weather data such as humidity, sunrise, sunset, etc.
 * Addition of Celsius or Fahrenheit settings for weather.
