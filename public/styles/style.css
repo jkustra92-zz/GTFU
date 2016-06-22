@@ -332,7 +332,7 @@ p {
 	.login-form {
 		padding: 0;
 		text-align: center;
-		margin-top: 8em;
+		margin-top: 9em;
 	}
 
 	#button {
@@ -344,7 +344,7 @@ p {
 		display: block;
 		margin: 0 auto;
 		margin-top: 2em;
-		margin-bottom: 3em;
+		margin-bottom: 2em;
 	}
 
 	.signup-form {
