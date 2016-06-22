@@ -175,6 +175,12 @@ div div div div {
 	display: inline-block;
 }
 
+.zipcode:hover{
+	color:white;
+	cursor: pointer;
+	cursor: hand;
+}
+
 .zip-button {
 	height: 0.5em;
 	width:  0.5em;
@@ -214,6 +220,7 @@ div div div div {
 	font-size: 16px;
 	bottom: 0;
 	left: 162px;
+	cursor:copy;
 }
 
 #news-container {
