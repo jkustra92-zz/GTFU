@@ -48,7 +48,7 @@ var App = React.createClass({
 			return (
 				<div id = 'homepage'>
 					<div id="about">
-						Grow The Fork Up is designed to help you become a better adult by  rendering the upcoming weather and the latest news from one of the world's top acceredited news sites. 
+						Grow The Fork Up is designed to help you become a better adult by  rendering the upcoming weather and the latest news from one of the world's top accredited news sites. 
     			</div>
     			<div className="icon-sun-shower">
       		<div className="cloud"></div>
