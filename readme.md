@@ -1,6 +1,6 @@
 # Grow the Fork Up
 
-[here!](still-waters-28982.herokuapp.com)
+[here!](https://still-waters-28982.herokuapp.com/)
 
 ## Description
 
