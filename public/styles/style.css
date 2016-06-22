@@ -31,13 +31,13 @@ body {
   margin: 0px;
 }
 
-h3{
+h3 {
 	font-family: 'Sriracha', cursive;
 	color:#fff;
 	display: inline-block;
 }
 
-p{
+p {
 	color: transparent;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke-width: 1px;
@@ -45,14 +45,14 @@ p{
 }
 
 
-#gradient{
+#gradient {
   width: 100%;
-  height: 800px;
+  height: 100vh;
   padding: 0px;
   margin: 0px;
 }
 
-#about{
+#about {
 	display: block;
 	margin-top: 3em;
 	/*padding-right: 10rem;*/
@@ -65,26 +65,26 @@ p{
 	text-align: justify;
 }
 
-.login-form{
+.login-form {
 	padding-left: 2rem;
 }
-.signup-form{
+.signup-form {
 	padding-left: 2rem;
 }
-.username-login-form{
+.username-login-form {
 	margin: 5px;
 }
-.password-login-form{
+.password-login-form {
 	margin: 5px;
 }
 
-.username-signup-form{
+.username-signup-form {
 	margin:5px;
 }
-.email-signup-form{
+.email-signup-form {
 	margin:5px;
 }
-.password-signup-form{
+.password-signup-form {
 	margin:5px;
 }
 
@@ -295,8 +295,15 @@ p {
 		padding: 0;
 	}
 	
+	#gradient {
+  width: 100%;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+	}
+
 	header {
-		margin-top: 0.25em;
+		padding-top: 0.25em;
 		font-size: 2.5em;
 	}
 
@@ -334,10 +341,169 @@ p {
 		display: block;
 		margin: 0 auto;
 		margin-top: 2em;
+		margin-bottom: 2em;
 	}
 
 	.signup-form {
 		text-align: center;
 		padding: 0;
 	}
+
+	#weather-container {
+		text-align: center;
+		width: 89%;
+		margin-left: 4.5%;
+		margin-right: 4.5%;
+		border: 3px solid #000000;
+		border-radius: 15px 15px 15px 15px;
+		height: 472px;
+	}
+
+	#zip-search {
+		margin: 0;
+		display: inline-block;
+		text-align: center;
+	}
+
+	.zip-input {
+		height: 40px;
+		font-size: 0.75em;
+	}
+
+	#zip-search > input {
+		width: 40%;
+	}
+
+	#zip-search > button {
+		width: 35%;
+		margin-left: 0;
+		height: 46px;
+	}
+
+	#zipcodes {
+		text-align: center;
+		display: inline-block;
+		overflow: auto;
+		overflow-x: scroll; 
+		overflow-y: hidden;
+		white-space: nowrap;
+		height: 30px;
+		width: 95%;
+		margin-left: 2.5%;
+	}
+
+	.zipcode {
+		margin: 5px;
+		display: inline-block;
+	}
+
+	.zip-button {
+		height: 0.5em;
+		width:  0.5em;
+		margin: 0;
+	}
+
+	#weather-display {
+		top: 85px;
+		height: 401px;
+		font-size: 30px;
+		text-align: center;
+	}
+
+	.weather {
+		display: inline-block;
+	}
+
+	#name {
+		font-size: 34px;
+		margin: 25px;
+	}
+
+	#temp {
+		font-size: 32px;
+		margin: 25px;
+	}
+
+	#desc {
+		margin-bottom: 20px;
+	} 
+
+	#high, #low {
+		font-size: 26px;
+		margin: 0;
+	}
+
+	#add-button {
+		height: 30px;
+		width: 65px;
+		margin: 5px;
+		font-size: 16px;
+		bottom: 0;
+		left: 162px;
+	}
+
+	#logout-button {
+		margin: 10px;
+		margin-right: 15px; 
+		float: right;
+	}
+
+	#news-container {
+		display: block;
+		text-align: center;
+		width: 91%;
+		margin-left: 4.5%;
+		/*border: 3px solid #FFFFFF;*/
+		border-radius: 15px 15px 15px 15px;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		float: none;
+		margin-right: 4.5%;
+	}
+
+	#topics-container {
+		width: 20%;
+		display: inline-block;
+		text-align: center;
+		border-right: none;
+	}
+
+	.topics {
+		border: 3px solid #000000;
+		border-radius: 10px 0 0 10px;
+		height: 92px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		font-family: 'Pacifico', cursive;
+		font-size: 1em;
+		color: #fff;
+	}
+
+/*	#topics-container div:not(:first-child) {
+		margin-top: -3px;
+	}*/
+
+	#articles-container {
+		border: 3px solid #000000;
+		border-left: none;
+		display: inline-block;
+		height: 493px;
+		border-radius: 0 15px 15px 0;
+		color: white;
+		box-sizing: border-box;
+		width: 80%;
+		flex-direction: column;
+	}
+
+	.article {
+		padding: 0px 7px 2px 7px;
+		height: 100%;
+		max-height: 90px;
+		text-align: justify;
+		font-size: 0.75em;		
+		flex: 1;
+/*		margin-bottom: -10px;*/
+	}
+
 }
