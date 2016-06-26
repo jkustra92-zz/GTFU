@@ -36,22 +36,23 @@ router.post('/', function(req, res) {
 //=======================
 // some email cool stuff
 //=======================
-
+ //rule and schedule are reffering to a npm package installed (line 11)
+ //reccurenceRule refers to a recurring functionality (0=sunday, 6=saturday)
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0, new schedule.Range(0, 6)];
-rule.hour = 7;
-rule.minute = 30;
+rule.hour = 7; //7 am
+rule.minute = 30; //7:30am
  
 var j = schedule.scheduleJob(rule, function(){
   console.log('so hopefully this will work lol');
-  var data = {
+  var data = { //creating email, via mailgun package which is required on line 15
     from: 'The Fork Masters <fork@growtheforkup.com>',
     to: 'forksperson@gmail.com',
     subject: 'good forking morning!',
     body: 'start your forking day off right! fwarks',
     html: "<h2><b>start your forking day off right<b></h2><br><img src = 'http://i.imgur.com/P0X2Emk.gif' /><br/><img src = 'http://67.media.tumblr.com/6b5fbeff75d59966356539355b3ceea6/tumblr_mr6se8xqEI1qbvaudo1_250.gif' /><br/><a href ='still-waters-28982.herokuapp.com'>fwarks</a>"
   };
-   
+   //the syntax for mailgun to send out, since its placed in the schedule function it will happen everyday
   mailgun.messages().send(data, function (error, body) {
     console.log("yay it's working!")
     console.log(body);
