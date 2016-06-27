@@ -20,8 +20,7 @@ var App = React.createClass({
 	//removing cookie and tempory cookies
 	//and returning auth user 
 	eatTheCookie: function() { 												// thanks Joe
-		Cookies.remove('jwt_token');
-		Cookies.remove('temp');  
+		Cookies.remove('jwt_token'); 
 		console.log(this.state)
 		this.setState({
 			authenticatedUser: '',
@@ -29,20 +28,21 @@ var App = React.createClass({
 	},
 
 	//setting auth user to true to 
-	//keep them logged in
+	//keep them logged in and dataId for additional functionality.
 	changeLogin: function(dataId) {
 		this.setState({
 			userId: dataId,
 			authenticatedUser: true
 		});
 	},
-	//renders the login form and the signup button
+	//renders the login form and the signup button if authenticated user is false.
+	//if authenticated user is true, it'll render the user's homepage component.
 	render: function() {
 		console.log('authenticatedUser: ', this.state.authenticatedUser);
 		// console.log('cookie:', document.cookie);
 		if(this.state.authenticatedUser === true) {
 			return (
-				<Page userId = {this.state.userId} onChange={this.eatTheCookie} />									
+				<Page userId = {this.state.userId} onChange={this.eatTheCookie} />		//userId getting passed through for user-specific data and this.eatTheCookie to logout. both things a user needs on their homepage.							
 			)																																			
 		}else{
 			return (
@@ -68,9 +68,15 @@ var App = React.createClass({
 	}
 });
 
+	//passing the above attributes down bc we want to be able to access the state of the authenticated user
+	//and later change it upon logging in.
+
 // ======================
 // login form component
 // ======================
+
+//unique stylistic approach of appropriate states in the relevant components. COULD have put login form state
+//in the overall application, but it's not really relevant there? idk, just a way of thinking.
 
 var LoginForm = React.createClass({
 	//username to be filled
@@ -84,21 +90,21 @@ var LoginForm = React.createClass({
 	},
 	//whatever changes happen are applied
 	handleLoginFormChange: function(stateName, e) {
-		var change = {};
-		change[stateName] = e.target.value;
+		var change = {};																//creating this empty object bc email and password will become key/value pairs
+		change[stateName] = e.target.value;							//change[stateName] allows for both email and password fields to be changed simultaneously.
 		this.setState(change);
 	},
 	handleSubmit: function(e) {
 		//the user credentials are then saved 
-		e.preventDefault();
-		var username = this.state.username.trim();
+		e.preventDefault();														//prevents default action of the form (which is a post request to a specified route. not what we're looking for here)
+		var username = this.state.username.trim();		//set username and password to the states that were set in line 95 and .trim() will take off the whitespace on the end.
 		var password = this.state.password.trim();
-		this.loginAJAX(username, password);
+		this.loginAJAX(username, password);						//calls on this ajax request method which takes in the username and the password declared above.
 	},
 	loginAJAX: function(username, password) {
 		//ajax request to save the user creds 
 		$.ajax({
-			url: '/auth',
+			url: '/auth',																	//post request to /auth
 			method: 'POST',
 			data: {
 				username: username,
@@ -107,10 +113,10 @@ var LoginForm = React.createClass({
 			//if saved it console logs
 			success: function(data) {
 				console.log('Token acquired.');
-				console.log(data);
+				console.log(data);	
 				Cookies.set('jwt_token', data.token);
-				this.props.onChange(data.id)
-			}.bind(this),
+				this.props.onChange(data.id) //this.props.onChange is referring to the login functionality that was passed down when the page was rendered. 
+			}.bind(this),										//sets authenticatedUser state to true and userId state equal to data.id
 			error: function(xhr, status, err) {
 				console.error(status, err.toString());
 			}.bind(this)
@@ -295,9 +301,9 @@ var SignUpForm = React.createClass({
 var Page = React.createClass({
 	render: function() {
 		console.log(this.props.userId)
-		return (
+		return (																	//this.props.onChange is referring to "this.eatTheCookie" which was passed down. and the weather component is getting the userId
 			<div main-container>
-				<LogOut onChange={this.props.onChange} />
+				<LogOut onChange={this.props.onChange} />			
 				<Weather userId = {this.props.userId} />
 				<News />
 			</div>
@@ -309,8 +315,8 @@ var LogOut = React.createClass({
 	handleClick: function() {
 		console.log('WAT')
 		console.log(this.props.onChange);
-		this.props.onChange();
-	},
+		this.props.onChange();								//when the logout button is clicked, it'll invoke the "eat the cookie" function that exists in the app component
+	},																			//this will reset the state of the authenticated user and cause the page to rerender.
 	render: function() {
 		console.log(this.props.onChange);
 		return (
@@ -335,7 +341,7 @@ var LogOut = React.createClass({
 
 var Weather = React.createClass({
 	getInitialState: function(){
-		return (
+		return (								//all of these are things are starting off as null because nothing has happened!!!
 			{
 				locations: null,
 				currentWeather: null,
@@ -345,17 +351,20 @@ var Weather = React.createClass({
 	},
 	//componentDidMount will run the function for the 
 	//Ajax call to render the zipcodes upon loading.
+	//runs whatever functionality that's inside of it 
+	//ONE TIME after initial render. that way, don't
+	//get caught in an infinite loop.
 	componentDidMount: function(){
 		this.getUsersLocations(this.props.userId)
 	},
-	getUsersLocations: function(userId){
-		console.log(userId)
+	getUsersLocations: function(userId){								//this grabs the user's zipcodes out of the database
+		console.log(userId)		
 		$.ajax({
 			url: "/users/" + userId,
 			method: "GET",
 			success: function(data) {
 				console.log(data)
-				this.setState({locations: data})
+				this.setState({locations: data})							//upon success, sets the state of the locations equal to the data returned.
 			}.bind(this)
 		})
 	},
@@ -366,25 +375,25 @@ var Weather = React.createClass({
 			success: function(data) {
 				console.log(data)
 				console.log(zipcode)
-				this.setState({currentWeather: data, zip: zipcode})
+				this.setState({currentWeather: data, zip: zipcode}) 		//success from ajax call will set currentWeather state to the data and the zip state to the zipcode that was searched
 			}.bind(this)
 		})
 	},
 	//the zipsearch takes that data from
 	//weather ajax and renders it
 	render: function() {
-		return (
+		return (												//the three components that make up the weather component need certain properties to function, which are passed down from this component
 			<div
 				id="weather-container"
 				class="display"
 			>				
 				<WeatherSidebar 
-					weatherData = {this.weatherAJAX} 
-					zipCodes = {this.state.locations} 
-					userId = {this.props.userId}
-					render = {this.getUsersLocations}
+					weatherData = {this.weatherAJAX} 				// needs to make call to API when clicked
+					zipCodes = {this.state.locations}				
+					userId = {this.props.userId}						//userId is passed down from App
+					render = {this.getUsersLocations}				//function that gets all the user's zipcodes
 				 />
-					<ZipSearch weatherData = {this.weatherAJAX} /> 
+					<ZipSearch weatherData = {this.weatherAJAX} />
 					<WeatherDisplay
 						weatherData = {this.weatherAJAX} 
 						currentWeather = {this.state.currentWeather} 
@@ -461,14 +470,14 @@ var WeatherSidebar = React.createClass({
 		// console.log(zipcode)
 		var self = this;
 			var callback = function(userId){
-			self.props.render(userId);
+			self.props.render(userId);														//going to look up the zipcodes again from the database. now that there's one less, the state will change and the page will rerender.
 		};
 		$.ajax({
 			url: "/users/" + this.props.userId + "/zipcodes/" + zipcode,
 			method: "DELETE",
 			success: function(data){
 				console.log(data)
-				callback(data._id)
+				callback(data._id)																//SO MUCH CALLBACK HELL. so little time.
 			}
 		})
 	},
@@ -480,9 +489,9 @@ var WeatherSidebar = React.createClass({
 		var self = this;
 		var callback = function(e){
 			console.log("i'm working?")
-			console.log(e.target.value)
+			console.log(e.target.value)					//get the value of the one we clicked on
 			var zip = e.target.value
-			self.lookUp(zip)
+			self.lookUp(zip)										//going to lead to the ajax call to openweather. eventually.
 		}
 		var callback2 = function(e){
 			console.log(e.target.value)
@@ -490,13 +499,13 @@ var WeatherSidebar = React.createClass({
 			self.handleDelete(zipcode)
 		}
 		var zips = this.props.zipCodes;
-		if (zips == null){
+		if (zips == null){									//same as the weather, can't try to render what doesn't exist
 			return (
 				null
 			)
 		} else {
 			var locations = zips.map(function(zipcode) {
-				return (
+				return (									//callback will display the weather for selected zip. callback2 deletes the zipcode from the db
 					<div 
 						className="zipcode"
 						onClick = {callback}
@@ -529,16 +538,16 @@ var WeatherDisplay = React.createClass({
 	addToDatabase: function(userId){
 		console.log("hey there!")
 		console.log(this.props.render)
-		var self = this;
-		var callback = function(userId){
-			self.props.render(userId);
+		var self = this 																			//setting self equal to this to preserve the component
+		var callback = function(userId){											//callback hell is occurring here. yikes.
+		self.props.render(userId);														//now that we're free of the ajax call, can use the render function to get the user's zipcodes from the database again.
 		};
 		$.ajax({
 			url: "/users/" + userId + "/zips",
 			method: "POST",
-			data: {zipcode: this.props.zipCode},
+			data: {zipcode: this.props.zipCode},								//have to follow the zipcode schema while adding to the database
 			success: function(data){
-				console.log(this);
+				console.log(this);																//"this" was not referring to the component as a whole, but rather the ajax call. hence the need for a callback
 				console.log("it's there. or it should be. idk. hopefully.")
 				console.log(data._id)
 				callback(data._id);
@@ -550,17 +559,17 @@ var WeatherDisplay = React.createClass({
 		console.log(this.props.zipCode)
 		console.log(this.props.userId)
 		// console.log(this.props.render)
-		this.addToDatabase(this.props.userId)
+		this.addToDatabase(this.props.userId)								//when the add button is clicked, it will call on an addToDataBase function that exists within this component
 	},
 	render: function() {
 		console.log(this.props.currentWeather)
 		var weather = this.props.currentWeather;
-		if (weather == null){
+		if (weather == null){																//if there is no current weather, then don't try to render anything
 			return (
 				null
 			)
 		} else {
-			return (
+			return (																			//now that there IS weather data, this will extract all the relevant data into a div
 				<div
 					id='weather-display'
 					className='weather'
@@ -588,7 +597,7 @@ var WeatherDisplay = React.createClass({
 //=================
 // News
 //=================
-var News = React.createClass({
+var News = React.createClass({							//larger news component that has an array of topics and displays whatever the current topic is.
 	getInitialState: function() {
 		return (
 			{topics: ['home', 'world', 'national', 'sports', 'business'],
@@ -608,14 +617,14 @@ var News = React.createClass({
 			}.bind(this)
 		});
 	},
-	getArticles: function(topic) {
+	getArticles: function(topic) {							//when a topic is clicked on, an ajax call is sent to the NYT API and the data is parsed in the controller and then returned
 		console.log('wat')
 		$.ajax({																	
 			url: '/users/news/' + topic,		
 			method: 'GET',
 			success: function(data) {
 				console.log(data)
-				this.setState({currentTopic: data})
+				this.setState({currentTopic: data})			//when the state of the current topic is set, it rerenders
 			}.bind(this)
 		});
 	},
@@ -640,14 +649,15 @@ var News = React.createClass({
 // news sidebar
 //--------------
 
-var NewsSidebar = React.createClass({
-	getTopic: function(topic) {
+var NewsSidebar = React.createClass({															//maps through the "topics" array that was set in the news component and renders them
+	getTopic: function(topic) {																			//with a click function that queries the API
 		this.props.getArticles(topic)
 	},
 	render: function() {
 		var self = this;
 		console.log(self);
-		var callback = function(e) {
+		var callback = function(e) {																	//needed a callback to actually reach the API request
+
 			console.log(e.target.value);
 			console.log('wat');
 			self.getTopic(e.target.value);
@@ -677,7 +687,7 @@ var NewsSidebar = React.createClass({
 var NewsDisplay = React.createClass({
 	render: function() {
 		var news = this.props.news;
-		if (news == null){
+		if (news == null){																//if there is no current topic, then return null (but with componentDidMount, it'll just show the home topic automatically)
 			return (
 				null
 			)

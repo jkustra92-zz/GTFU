@@ -28,7 +28,7 @@ router.post('/', function(req, res) {
 			console.log(err); 
 			res.status(500).end();
 		}
-		console.log("Yippee kiyay motherfucker.");
+		console.log("beep boop.");
 		res.send(user);
 	});
 });
@@ -43,7 +43,7 @@ rule.hour = 7;
 rule.minute = 30;
  
 var j = schedule.scheduleJob(rule, function(){
-  console.log('so hopefully this will work lol');
+  console.log('hitting schedule');
   var data = {
     from: 'The Fork Masters <fork@growtheforkup.com>',
     to: 'forksperson@gmail.com',
@@ -53,7 +53,7 @@ var j = schedule.scheduleJob(rule, function(){
   };
    
   mailgun.messages().send(data, function (error, body) {
-    console.log("yay it's working!")
+    console.log("hitting mailgun!")
     console.log(body);
   });
 });
