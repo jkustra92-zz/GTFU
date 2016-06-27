@@ -1,10 +1,12 @@
-still-waters-28982.herokuapp.com
+# Grow the Fork Up
 
-# Description
+[here!](https://still-waters-28982.herokuapp.com/)
+
+## Description
 
 This app helps you adult by providing the weather and top news stories of the day.
 
-# Tech Used/Stack
+## Tech Used/Stack
 
 * JavaScript
 * Passport
@@ -17,7 +19,7 @@ This app helps you adult by providing the weather and top news stories of the da
 * NYTimes API
 * Mailgun API
 
-# Features
+## Features
 
 * Auto-login upon sign-up. V cool guys.
 * Each show page prevents temperatures for the day -- current, high, and low.
@@ -25,7 +27,7 @@ This app helps you adult by providing the weather and top news stories of the da
 * Daily morning email to users with a link to the site.
 * Persistent data -- users can store multiple zipcodes.
 
-# Future Implementations
+## Future Implementations
 
 * Add additional weather data such as humidity, sunrise, sunset, etc.
 * Addition of Celsius or Fahrenheit settings for weather.
